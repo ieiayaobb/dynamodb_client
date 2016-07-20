@@ -78,13 +78,9 @@
     <div class="row">
         <div class="col-sm-2 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="table-name active"><a href="#">identity_account_v20160711 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="table-name" ><a href="#">identity_company_v20160711</a></li>
-                <li class="table-name"><a href="#">identity_account_role</a></li>
-                <li class="table-name"><a href="#">identity_company_role</a></li>
-                <li class="table-name"><a href="">identity_granted_product</a></li>
-                <li class="table-name"><a href="">identity_role</a></li>
+                {% for table in tables %}
+                    <li class="table-name" ><a href="#">{{ table }}</a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
