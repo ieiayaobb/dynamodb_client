@@ -1,28 +1,26 @@
 {
-  "name": "electron-quick-start",
+  "name": "Dynamodb-GUI",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A GUI for dynamodb client",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": ""
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "Electron"
   ],
-  "author": "GitHub",
+  "author": "Shen Yineng",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "",
   "devDependencies": {
-    "electron-prebuilt": "^1.2.0"
+    "electron-prebuilt": "^1.2.0",
+    "request-promise": "*"
   }
 }
