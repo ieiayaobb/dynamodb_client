@@ -73,8 +73,18 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="termminal">
-                                <input id="terminal-text" type="text" />
+                            <div class="row termminal">
+                                <h4 class="terminal-label">自定义命令</h4>
+                                <form method="POST">
+                                    <div class="col-xs-10 col-sm-10">
+                                        <input id="terminal-text" class="terminal-text" type="text" name="terminal_text"/>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2">
+                                        <button type="submit" class="btn btn-success execute"><i
+                                                class="iconfont icon-querycondition"></i>执行
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             {% block table %}
                             {% endblock %}
@@ -186,7 +196,7 @@
             }
 
             $("#index-name").val($(this).val())
-        })
+        });
     })
 </script>
 {% block inner_javascript %}{% endblock %}
