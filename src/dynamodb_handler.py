@@ -1,7 +1,6 @@
 import boto3 as boto3
 import logging
 
-
 class DynamodbHandler:
     def __init__(self, endpoint_url, aws_access_key_id, aws_secret_access_key, region_name):
         self._scan_limit = 10
@@ -39,5 +38,11 @@ class DynamodbHandler:
             else:
                 table_items = table.scan(Limit=self._scan_limit)
             return table_items
+        except Exception as e:
+            logging.error(e.message)
+
+    def desc_table(self, table_name):
+        try:
+            return self.dynamodb_client.describe_table(TableName=table_name)
         except Exception as e:
             logging.error(e.message)
