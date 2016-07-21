@@ -44,8 +44,9 @@
     </ul>
 </nav>
 </form>
+{% endblock %}
 
-{% block javascript %}
+{% block inner_javascript %}
 <script>
 function get_pagination(type) {
     var form = $("#pagination_form");
@@ -62,4 +63,3 @@ function get_pagination(type) {
 </script>
 {% endblock %}
 
-{% endblock %}
