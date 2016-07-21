@@ -50,26 +50,26 @@
         <h3 class="panel-title">Connect</h3>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="/connect" method="POST">
             <div class="form-group">
                 <label for="exampleInputEmail1" class="col-sm-4">Endpoint:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Endpoint">
+                    <input type="url" class="form-control" id="exampleInputEmail1" placeholder="Endpoint" name="endpoint" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">Access Key:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="Access Key">
+                    <input type="text" class="form-control" placeholder="Access Key" name="access_key" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">Access Secret:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="Access Secret">
+                    <input type="text" class="form-control" placeholder="Access Secret" name="access_secret" required>
                 </div>
             </div>
-            <a href="/dashboard" type="submit" class="btn btn-success">connect</a>
+            <button type="submit" class="btn btn-success">connect</button>
         </form>
     </div>
 </div>
@@ -79,5 +79,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/validator.min.js')}}"></script>
 </body>
 </html>

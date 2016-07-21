@@ -1,7 +1,7 @@
 import threading
 import logging
 
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, session
 from flask import render_template
 from flask import request
 
@@ -10,19 +10,40 @@ from src.config.Constant import *
 
 
 app = Flask(__name__)
+app.secret_key = "hackthon"
+
 logger = logging.getLogger("")
 
-dynamodb_handler = DynamodbHandler(endpoint_url = 'http://192.168.3.66:80', aws_access_key_id = '', aws_secret_access_key = '', region_name = '')
+dynamodb_handler_dic = {}
 
 @app.route("/dashboard")
 def dashboard():
+    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
     tables = dynamodb_handler.list_tables()
     return render_template('dashboard.html', tables=tables)
 
 
-@app.route("/connect")
-def connect():
+@app.route("/connect", methods=['GET'])
+def get_connect():
     return render_template('connect.html')
+
+
+@app.route("/connect", methods=['POST'])
+def post_connect():
+    endpoint = request.form['endpoint']
+    access_key = request.form['access_key']
+    access_secret = request.form['access_secret']
+    logger.info("endpoint:%s" % (endpoint))
+    logger.info("access_key:%s" % (access_key))
+    logger.info("access_secret:%s" % (access_secret))
+
+    if not endpoint in dynamodb_handler_dic:
+        dynamodb_handler_dic[endpoint] = DynamodbHandler(endpoint_url=endpoint, aws_access_key_id=access_key,
+                                           aws_secret_access_key=access_secret, region_name='')
+
+    session['endpoint'] = endpoint
+
+    return redirect(url_for('dashboard'))
 
 
 @app.route("/")
@@ -31,6 +52,8 @@ def index():
 
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
 def table_view(table_name):
+    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
+
     tables = dynamodb_handler.list_tables()
     last_evaluated_key = None
 
@@ -71,5 +94,5 @@ def init_logger():
 
 if __name__ == "__main__":
     init_logger()
-    app.run()
+    app.run(debug=True)
 
