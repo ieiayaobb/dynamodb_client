@@ -1,6 +1,7 @@
 import threading
 import logging
 
+import collections
 from flask import Flask, url_for, redirect
 from flask import render_template
 from flask import request
@@ -39,7 +40,18 @@ def table_view(table_name):
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items)
+    table_headers = collections.OrderedDict()
+
+    for attribute in current_table['AttributeDefinitions']:
+        table_headers[attribute['AttributeName']] = attribute['AttributeType']
+
+    for table_item in table_items['Items']:
+        keys = table_item.keys()
+        for key in keys:
+            if table_headers.has_key(key):
+                table_headers[key] = table_item[key].items()[0][0]
+
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers)
 
 
 def init_logger():
