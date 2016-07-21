@@ -29,6 +29,9 @@ class DynamodbHandler:
     def get_dynamodb_client(self):
         return self.dynamodb_client
 
+    def get_dynamodb(self):
+        return self.dynamodb
+
     def get_table(self, table_name):
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)

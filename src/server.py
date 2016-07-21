@@ -47,6 +47,37 @@ def index():
     return redirect(url_for('get_connect'))
 
 
+@app.route("/update/", methods=['POST'])
+def update():
+    endpoint = session['endpoint']
+    if endpoint in dynamodb_handler_dic:
+        dynamodb_handler = dynamodb_handler_dic[endpoint]
+    else:
+        return redirect(url_for('get_connect'))
+
+    table_name = request.form.get('table_name', None)
+    hash_key_field = request.form.get('hash_key_field', None)
+    hash_key = request.form.get('hash_key', None)
+
+    range_key_field = request.form.get('range_key_field', None)
+    range_key = request.form.get('range_key', None)
+
+    update_field = request.form.get('update_field', None)
+    update_value = request.form.get('update_value', None)
+
+    dynamodb_handler.get_dynamodb().Table(table_name).update_item(
+        Key={
+            hash_key_field: hash_key
+        },
+        AttributeUpdates={
+            update_field: {
+                'Value': update_value,
+                'Action': 'PUT'
+            }
+        }
+    )
+    return 'success'
+
 @app.route("/table/", methods=['POST', 'GET'])
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
 def table_view(table_name=None):

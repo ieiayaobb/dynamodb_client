@@ -53,7 +53,7 @@
                                             <span>Hash Key:</span>
                                             <input type="hidden" id="hash-key-field" name="hash_key_field">
                                             <input type="text" class="form-control" id="hash-key-value" name="hash_key"
-                                                   placeholder="">
+                                                   placeholder="" required>
                                         </div>
 
                                         <div class="form-group">
@@ -155,10 +155,32 @@
         });
 
         $("#edit-item").blur(function () {
-            console.log('update')
+            var $tr = $target.parent('tr');
+            var hash_key = $tr.attr("hash")
+            var range_key = $tr.attr("range")
+            update_value = $(this).val();
+            $.ajax({
+                url:'/update/',
+                method: 'POST',
+                data: {
+                    hash_key_field:$("#hash-key-field").val(),
+                    range_key_field:$("#range-key-field").val(),
+                    hash_key: hash_key,
+                    range_key: range_key,
+                    update_value: update_value,
+                    update_field: $target.attr('title'),
+                    table_name: '{{table_name}}'
+                },
+                success:function(){
+                    $target.children('.data-item-val').text(update_value)
+                }
+            });
         })
 
+        var $target;
+
         function show_popover($target) {
+            $target = $target;
             $("#edit-item").width(155).height(40).val($target.children(".data-item-val").text())
 
             var top = $target.offset().top;
@@ -195,7 +217,6 @@
             if($(this).val() == 'table'){
                 $("#hash-key-value").attr('placeholder', table_keys['HASH'])
                 $("#range-key-value").attr('placeholder', table_keys['RANGE'])
-                console.log(table_keys['HASH'])
                 $("#hash-key-field").val(table_keys['HASH'])
                 $("#ranve-key-field").val(table_keys['RANGE'])
             } else {
