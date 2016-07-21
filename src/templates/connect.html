@@ -1,98 +1,35 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!--<link rel="icon" href="../../favicon.ico">-->
+{% extends "snippets/layout.html" %}
 
-    <title>Dynamodb GUI</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static', filename='css/reset.css')}}" rel="stylesheet">
-    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{url_for('static', filename='css/bootflat.min.css')}}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <style>
-        body{
-            background-color: rgb(241, 242, 246);
-        }
-
-        .connect{
-            position:absolute;
-            top: 50%;
-            left: 50%;
-            margin: -250px 0 0 -200px;
-            width: 400px;
-        }
-    </style>
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Dynamodb GUI</a>
-        </div>
-        <!--<div id="navbar" class="navbar-collapse collapse">-->
-        <!--<ul class="nav navbar-nav navbar-right">-->
-        <!--<li><a href="#">Dashboard</a></li>-->
-        <!--<li><a href="#">Settings</a></li>-->
-        <!--<li><a href="#">Profile</a></li>-->
-        <!--<li><a href="#">Help</a></li>-->
-        <!--</ul>-->
-        <!--<form class="navbar-form navbar-right">-->
-        <!--<input type="text" class="form-control" placeholder="Search...">-->
-        <!--</form>-->
-        <!--</div>-->
-    </div>
-</nav>
+{% block stylesheet %}
+    <link href="{{url_for('static', filename='css/connect.css')}}" rel="stylesheet">
+{% endblock %}
+{% block main %}
 <div class="panel panel-success connect">
     <div class="panel-heading">
         <h3 class="panel-title">Connect</h3>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="/connect" method="POST">
             <div class="form-group">
                 <label for="exampleInputEmail1" class="col-sm-4">Endpoint:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Endpoint">
+                    <input type="url" class="form-control" id="exampleInputEmail1" placeholder="Endpoint" name="endpoint" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">Access Key:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="Access Key">
+                    <input type="text" class="form-control" placeholder="Access Key" name="access_key" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">Access Secret:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="Access Secret">
+                    <input type="text" class="form-control" placeholder="Access Secret" name="access_secret" required>
                 </div>
             </div>
-            <a href="/dashboard" type="submit" class="btn btn-success">connect</a>
+            <button type="submit" class="btn btn-success">connect</button>
         </form>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-</body>
-</html>
+{% endblock %}

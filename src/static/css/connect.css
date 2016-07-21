@@ -1,0 +1,11 @@
+body {
+    background-color: rgb(241, 242, 246);
+}
+
+.connect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -200px;
+    width: 400px;
+}

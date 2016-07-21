@@ -1,0 +1,137 @@
+{% extends "snippets/layout.html" %}
+
+{% block stylesheet %}
+<link href="{{url_for('static', filename='css/dashboard.css')}}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+<div class="popover right" id="popover-panel">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <input class="edit-item" id="edit-item" type="text" value="9999" />
+  </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {% for table in tables %}
+                    <li class="table-ele" ><i class="iconfont icon-table"></i><a class="table-name" href="/table/{{table}}">{{ table }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
+            <div class="panel panel-success">
+                <div class="panel-heading"><i class="iconfont icon-data"></i>数据</div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="row form-bar">
+                            <div class="col-xs-2 col-sm-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Index
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Table</a></li>
+                                        <li><a href="#">email</a></li>
+                                        <li><a href="#">company_id</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-5 col-sm-5">
+                                <div class="form-group">
+                                    <span>Hash Key:</span>
+                                    <input type="text" class="form-control" id="exampleInputName1" placeholder="email">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-sm-5">
+                                <div class="form-group">
+                                    <span>Range Key:</span>
+                                    <input type="text" class="form-control" id="exampleInputName2"
+                                           placeholder="company_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row operate-bar">
+                            <div class="col-xs-offset-9 col-xs-3 col-sm-offset-9 col-sm-3">
+                                <button type="submit" class="btn btn-success"><i class="iconfont icon-querycondition"></i>查询</button>
+                                <button type="submit" class="btn btn-default"><i class="iconfont icon-scan"></i>扫描</button>
+                            </div>
+                        </div>
+                    </form>
+                    {% block table %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-7 col-sm-offset-2 col-md-7 col-md-offset-2">
+            <div class="panel panel-success ">
+                <div class="panel-heading"><i class="iconfont icon-console"></i>控制台</div>
+                <div class="panel-body console">
+                    <ul>
+                        <li>Scan table</li>
+                        <li>Scan table</li>
+                        <li>Scan table</li>
+                        <li>Scan table</li>
+                        <li>Scan table</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-md-3">
+            <div class="panel panel-success info">
+                <div class="panel-heading"><i class="iconfont icon-detail"></i>详情</div>
+                <div class="panel-body ">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span>总数量:</span><strong>18232</strong></li>
+                        <li class="list-group-item"><span>Stream信息:</span></li>
+                        <li class="list-group-item"><span>Global Secondary Index:</span></li>
+                        <li class="list-group-item"><span>Local Secondary Index:</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("body").click(function(e){
+            if ($(e.target).hasClass("data-item")){
+                $target = $(e.target)
+                show_popover($target)
+
+            } else if ($(e.target).hasClass("data-item-val")) {
+                $target = $(e.target).parent()
+                show_popover($target)
+            } else if ($(e.target).hasClass("edit-item")) {
+
+            } else {
+                $("#popover-panel").hide()
+            }
+        });
+
+        $("#edit-item").blur(function(){
+            console.log('update')
+        })
+
+        function show_popover($target){
+            $("#edit-item").val($target.children(".data-item-val").text())
+
+            var top = $target.offset().top
+            var left = $target.offset().left + 100
+
+            $("#popover-panel").show().css({
+                top: top,
+                left: left
+            })
+        }
+    })
+</script>
+{% endblock %}
