@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             {% for item in table_items %}
-            <tr>
+            <tr {% for key_schema in current_table['KeySchema'] %}{{ key_schema['KeyType'] }}="{{ item[key_schema['AttributeName']].values()[0] }}"  {% endfor %}>
                 {% for key, value in table_headers.iteritems() %}
                 <td class="data-item" title="{{ key }}">
                     <i class="iconfont">&#xe654;</i>
