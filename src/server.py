@@ -1,6 +1,5 @@
 import threading
 import logging
-import ast
 
 import collections
 from flask import Flask, url_for, redirect, session
@@ -9,21 +8,24 @@ from flask import request
 
 from dynamodb_handler import DynamodbHandler
 from src.config.Constant import *
+from src.parser.Parser import *
 
-
+# sio = socketio.Server(logger=True)
 app = Flask(__name__)
 app.secret_key = "hackthon"
+
+# app.wsgi_app = socketio.Middleware(sio, app.wsgi_app)
 
 logger = logging.getLogger("")
 
 dynamodb_handler_dic = {}
 
-@app.route("/connect", methods=['GET'])
+@app.route("/login", methods=['GET'])
 def get_connect():
     return render_template('connect.html')
 
 
-@app.route("/connect", methods=['POST'])
+@app.route("/login", methods=['POST'])
 def post_connect():
     endpoint = request.form['endpoint']
     access_key = request.form['access_key']
@@ -37,6 +39,8 @@ def post_connect():
                                            aws_secret_access_key=access_secret, region_name='')
 
     session['endpoint'] = endpoint
+    if not 'messages' in session:
+        session['messages'] = ['connect...']
 
     return redirect(url_for('table_view'))
 
@@ -52,6 +56,7 @@ def table_view(table_name=None):
     endpoint = session['endpoint']
     if endpoint in dynamodb_handler_dic:
         dynamodb_handler = dynamodb_handler_dic[endpoint]
+        Parser.init(dynamodb_handler)
     else:
         return redirect(url_for('get_connect'))
 
@@ -72,13 +77,21 @@ def table_view(table_name=None):
     if page_items_history:
         page_items_history = ast.literal_eval(page_items_history)
 
+    messages = session['messages']
+    if request.method == "GET":
+        hash_key = request.form.get('hash_key', None)
+        logger.info("hash_key:%s" % (hash_key))
 
+        range_key = request.form.get('range_key', None)
+        logger.info("range_key:%s" % (range_key))
 
-    hash_key = request.form.get('hash_key', None)
-    logger.info("hash_key:%s" % (hash_key))
-
-    range_key = request.form.get('range_key', None)
-    logger.info("range_key:%s" % (range_key))
+    if request.method == 'POST':
+        terminal_text = request.form.get('terminal_text', None)
+        logger.info("terminal_text:%s" % (terminal_text))
+        items = Parser.parse(terminal_text)
+        if items:
+            messages.append(terminal_text)
+            session['messages'] = messages
 
     current_table = dynamodb_handler.get_table(table_name)
 
@@ -99,6 +112,7 @@ def table_view(table_name=None):
         else:
             current_page_size += 1
             page_items = page_items_history[current_page_size-1]
+
 
     table_headers = collections.OrderedDict()
 
@@ -122,7 +136,8 @@ def table_view(table_name=None):
                            page_items_history=page_items_history,
                            count=count,
                            table_headers=table_headers,
-                           table_name=table_name)
+                           table_name=table_name,
+                           messages=messages)
 
 
 def init_logger():

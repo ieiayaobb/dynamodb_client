@@ -34,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Dynamodb GUI</a>
+            <a class="navbar-brand" href="/">Dynamodb GUI</a>
         </div>
         <!--<div id="navbar" class="navbar-collapse collapse">-->
         <!--<ul class="nav navbar-nav navbar-right">-->
@@ -55,10 +55,16 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 
 {% block javascript %}{% endblock %}
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
 
 </body>
 </html>

@@ -3,13 +3,16 @@ lexer grammar MySQLLexer;
 @header {
 }
 
-SELECT: 'select';
-INSERT: 'insert';
-DESC:'desc';
-INTO: 'into';
-VALUES: 'values';
-FROM: 'from';
-WHERE: 'where';
+SELECT: 'select'|'SELECT';
+INSERT: 'insert'|'INSERT';
+DESC:'desc'|'DESC';
+UPDATE:'update'|'UPDATE';
+SET:'set'|'SET';
+INTO: 'into'|'INTO';
+VALUES: 'values'|'VALUES';
+FROM: 'from'|'FROM';
+WHERE: 'where'|'WHERE';
+LIMIT: 'limit'|'LIMIT';
 AND: 'and' | '&&';
 OR: 'or' | '||';
 XOR: 'xor';

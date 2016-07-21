@@ -25,6 +25,31 @@ class MySQLParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MySQLParser#insert_clause.
+    def visitInsert_clause(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#insert_expression.
+    def visitInsert_expression(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#update_clause.
+    def visitUpdate_clause(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#update_expression.
+    def visitUpdate_expression(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#limit_clause.
+    def visitLimit_clause(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MySQLParser#table_name.
     def visitTable_name(self, ctx):
         return self.visitChildren(ctx)
@@ -95,8 +120,28 @@ class MySQLParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MySQLParser#insert_value.
+    def visitInsert_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#update_value.
+    def visitUpdate_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#limit_value.
+    def visitLimit_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MySQLParser#relational_op.
     def visitRelational_op(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#eq_op.
+    def visitEq_op(self, ctx):
         return self.visitChildren(ctx)
 
 
