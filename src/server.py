@@ -75,7 +75,7 @@ def table_view(table_name=None):
             if not table_headers.has_key(key):
                 table_headers[key] = table_item[key].items()[0][0]
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers)
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name)
 
 
 def init_logger():
