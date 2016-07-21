@@ -29,19 +29,19 @@ class DynamodbHandler:
     def get_table(self, table_name, last_evaluated_key=None):
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)
-            table_items = self.scan(table_name, ExclusiveStartKey=last_evaluated_key)
+            table_items = self.scan(table_name, ExclusiveStartKey=last_evaluated_key, Limit=self._scan_limit)
             return table['Table'], table_items
         except Exception as e:
             logging.error(e.message)
 
     def scan(self, table_name, **kwargs):
         change_kwargs = kwargs.copy()
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             if not v:
                 change_kwargs.pop(k)
 
         try:
-            table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, **change_kwargs)
+            table_items = self.dynamodb_client.scan(TableName=table_name, **change_kwargs)
             return table_items
         except Exception as e:
             logging.error(e.message)
@@ -55,6 +55,14 @@ class DynamodbHandler:
                 return talbe.get_item(TableName=table_name, Key=key)
         except Exception as e:
             logging.error(e.message)
+
+    def put_item(self, table_name, item):
+        try:
+            table = self.dynamodb.Table(table_name)
+            return table.put_item(Item=item)
+        except Exception as e:
+            logging.error(e.message)
+
 
     def desc_table(self, table_name):
         try:

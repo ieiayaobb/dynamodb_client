@@ -40,6 +40,51 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MySQLParser#insert_clause.
+    def enterInsert_clause(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#insert_clause.
+    def exitInsert_clause(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#insert_expression.
+    def enterInsert_expression(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#insert_expression.
+    def exitInsert_expression(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#update_clause.
+    def enterUpdate_clause(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_clause.
+    def exitUpdate_clause(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#update_expression.
+    def enterUpdate_expression(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_expression.
+    def exitUpdate_expression(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#limit_clause.
+    def enterLimit_clause(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#limit_clause.
+    def exitLimit_clause(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by MySQLParser#table_name.
     def enterTable_name(self, ctx):
         pass
@@ -166,12 +211,48 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MySQLParser#insert_value.
+    def enterInsert_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#insert_value.
+    def exitInsert_value(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#update_value.
+    def enterUpdate_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_value.
+    def exitUpdate_value(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#limit_value.
+    def enterLimit_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#limit_value.
+    def exitLimit_value(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by MySQLParser#relational_op.
     def enterRelational_op(self, ctx):
         pass
 
     # Exit a parse tree produced by MySQLParser#relational_op.
     def exitRelational_op(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#eq_op.
+    def enterEq_op(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#eq_op.
+    def exitEq_op(self, ctx):
         pass
 
 

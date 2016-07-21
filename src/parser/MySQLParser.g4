@@ -7,7 +7,7 @@ options {
 
 
 
-stat:select_clause|desc_clause;
+stat:select_clause|desc_clause|insert_clause|update_clause;
 
 schema_name:
     ID
@@ -16,7 +16,28 @@ schema_name:
 desc_clause:
         DESC table_name;
 
-select_clause:SELECT column_list_clause FROM table_name (where_clause)?
+select_clause:
+            SELECT column_list_clause FROM table_name (where_clause)? (limit_clause)?
+            ;
+
+insert_clause:
+            INSERT INTO table_name VALUES LPAREN? (COMMA? insert_expression)+ RPAREN?
+            ;
+
+insert_expression:
+            column_name eq_op insert_value
+            ;
+
+update_clause:
+            UPDATE table_name SET (COMMA? update_expression)+ where_clause
+            ;
+
+update_expression:
+            column_name eq_op update_value
+            ;
+
+limit_clause:
+            LIMIT limit_value
             ;
 
 table_name:
@@ -51,11 +72,11 @@ where_clause:
 		;
 
 hash_expression:
-        WHERE hash_key relational_op hash_value
+        WHERE hash_key eq_op hash_value
         ;
 
 hash_range_expression:
-        WHERE hash_key relational_op hash_value expr_op range_key relational_op range_value
+        WHERE hash_key eq_op hash_value expr_op range_key eq_op range_value
         ;
 
 hash_key:
@@ -74,8 +95,24 @@ range_value:
         ID
         ;
 
+insert_value:
+        ID
+        ;
+
+update_value:
+        ID
+        ;
+
+limit_value:
+        ID
+        ;
+
 relational_op:
 		EQ | LTH | GTH | NOT_EQ | LET | GET  ;
+
+eq_op:
+    EQ
+    ;
 
 expr_op:
 		AND | XOR | OR | NOT;
