@@ -14,7 +14,7 @@
             {% for item in table_items %}
             <tr>
                 {% for key, value in table_headers.iteritems() %}
-                <td class="data-item">
+                <td class="data-item" title="{{ key }}">
                     <i class="iconfont">&#xe654;</i>
                     <span class=data-item-val>{% if key not in item.keys() %}null{% else %}{{ item[key][value] }}{% endif %}</span>
                 </td>
