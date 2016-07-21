@@ -8,7 +8,7 @@ from flask import request
 
 from dynamodb_handler import DynamodbHandler
 from src.config.Constant import *
-
+from src.parser.Parser import *
 
 app = Flask(__name__)
 app.secret_key = "hackthon"
@@ -51,6 +51,7 @@ def table_view(table_name=None):
     endpoint = session['endpoint']
     if endpoint in dynamodb_handler_dic:
         dynamodb_handler = dynamodb_handler_dic[endpoint]
+        Parser.init(dynamodb_handler)
     else:
         return redirect(url_for('get_connect'))
 
@@ -68,6 +69,13 @@ def table_view(table_name=None):
 
         range_key = request.form.get('range_key', None)
         logger.info("range_key:%s" % (range_key))
+
+    if request.method == 'POST':
+        terminal_text = request.form.get('terminal_text', None)
+        logger.info("terminal_text:%s" % (terminal_text))
+
+        print Parser.parse(terminal_text)
+
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 

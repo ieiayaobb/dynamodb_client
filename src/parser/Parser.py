@@ -21,8 +21,8 @@ from src.exception.ParseException import *
 
 class Parser(MySQLParserVisitor):
     @classmethod
-    def init(cls, key, secret, region, endpoint):
-        cls.dynamodb = DynamodbHandler(endpoint, key, secret, region)
+    def init(cls, dynamodb):
+        cls.dynamodb = dynamodb
 
     @classmethod
     def parse(cls, statment):
