@@ -85,7 +85,7 @@ class Visitor(MySQLParserVisitor):
                 result = self.dynamodb.get_item(table_name, key, columns)
             else:
                 if columns:
-                    result = self.dynamodb.scan(table_name, columns)
+                    result = self.dynamodb.scan(table_name, AttributesToGet=columns)
                 else:
                     result = self.dynamodb.scan(table_name)
 
@@ -103,4 +103,6 @@ if __name__ == "__main__":
     # print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
     Parser.init(AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION, DYNAMODB_ENDPOINT)
     print(
-        Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN"))
+        Parser.parse("select * from patent"))
+    print(
+        Parser.parse("desc matrix_result"))
