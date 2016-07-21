@@ -76,26 +76,130 @@ def table_view(table_name=None):
 
     current_table = dynamodb_handler.get_table(table_name)
 
-    messages = session['messages']
-    if request.method == "GET":
-        hash_key = request.form.get('hash_key', None)
-        logger.info("hash_key:%s" % (hash_key))
-
-        range_key = request.form.get('range_key', None)
-        logger.info("range_key:%s" % (range_key))
-
-
-
-
-    if request.method == 'POST':
-        terminal_text = request.form.get('terminal_text', None)
-        logger.info("terminal_text:%s" % (terminal_text))
-        items = Parser.parse(terminal_text)
-        if items:
-            messages.append(terminal_text)
-            session['messages'] = messages
+    table_headers = collections.OrderedDict()
+    for attribute in current_table['AttributeDefinitions']:
+        table_headers[attribute['AttributeName']] = attribute['AttributeType']
 
     page_items = None
+
+
+
+    count = dynamodb_handler.count(table_name)
+
+    messages = session['messages']
+    if request.method == 'POST':
+        hash_key_field = request.form.get('hash_key_field', None)
+        logger.info("hash_key_field:%s" % (hash_key_field))
+
+        if hash_key_field:
+            index_name = request.form.get('index_name', None)
+            logger.info("index_name:%s" % (index_name))
+
+            range_key_field = request.form.get('range_key_field', None)
+            logger.info("range_key_field:%s" % (range_key_field))
+
+            hash_key = request.form.get('hash_key', None)
+            logger.info("hash_key:%s" % (hash_key))
+
+            range_key = request.form.get('range_key', None)
+            logger.info("range_key:%s" % (range_key))
+
+            dynamodb_client = dynamodb_handler.get_dynamodb_client()
+
+            if not range_key:
+                if index_name:
+                    table_items = dynamodb_client.query(
+                        TableName=table_name,
+                        IndexName=index_name,
+                        KeyConditions={
+                            hash_key_field: {
+                                'AttributeValueList': [{
+                                    'S': hash_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            }
+                        }
+                    )
+                else:
+                    table_items = dynamodb_client.query(
+                        TableName=table_name,
+                        KeyConditions={
+                            hash_key_field: {
+                                'AttributeValueList': [{
+                                    'S': hash_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            }
+                        }
+                    )
+            else:
+                if index_name:
+                    table_items = dynamodb_client.query(
+                        TableName=table_name,
+                        IndexName=index_name,
+                        KeyConditions={
+                            hash_key_field: {
+                                'AttributeValueList': [{
+                                    'S': hash_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            },
+                            range_key_field: {
+                                'AttributeValueList': [{
+                                    'S': range_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            }
+                        }
+                    )
+                else:
+                    table_items = dynamodb_client.query(
+                        TableName=table_name,
+                        KeyConditions={
+                            hash_key_field: {
+                                'AttributeValueList': [{
+                                    'S': hash_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            },
+                            range_key_field: {
+                                'AttributeValueList': [{
+                                    'S': range_key
+                                }],
+                                'ComparisonOperator': 'EQ'
+                            }
+                        }
+                    )
+
+            for page_item in table_items['Items']:
+                keys = page_item.keys()
+                for key in keys:
+                    if not table_headers.has_key(key):
+                        table_headers[key] = page_item[key].items()[0][0]
+
+        else:
+            terminal_text = request.form.get('terminal_text', None)
+            logger.info("terminal_text:%s" % (terminal_text))
+            table_items = Parser.parse(terminal_text)
+            if table_items:
+                messages.append(terminal_text)
+                session['messages'] = messages
+
+        if table_items and 'Items' in table_items:
+            return render_template('table_detail.html',
+                                   tables=tables,
+                                   current_table=current_table,
+                                   table_items=table_items['Items'],
+                                   current_page_size=current_page_size,
+                                   page_item_limit=Constant.TABLE_SCAN_LIMIT,
+                                   last_evaluated_key=last_evaluated_key,
+                                   page_items_history=page_items_history,
+                                   count=count,
+                                   table_headers=table_headers,
+                                   table_name=table_name,
+                                   messages=messages)
+
+
 
     if pagination_type == "previous":
         if current_page_size > 1:
@@ -113,19 +217,11 @@ def table_view(table_name=None):
             current_page_size += 1
             page_items = page_items_history[current_page_size-1]
 
-
-    table_headers = collections.OrderedDict()
-
-    for attribute in current_table['AttributeDefinitions']:
-        table_headers[attribute['AttributeName']] = attribute['AttributeType']
-
     for page_item in page_items:
         keys = page_item.keys()
         for key in keys:
             if not table_headers.has_key(key):
                 table_headers[key] = page_item[key].items()[0][0]
-
-    count = dynamodb_handler.count(table_name)
 
     return render_template('table_detail.html',
                            tables=tables,
