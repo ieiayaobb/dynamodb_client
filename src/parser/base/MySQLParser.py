@@ -42,7 +42,7 @@ def serializedATN():
         buf.write(u"ij\7\t\2\2jk\5 \21\2kl\5,\27\2lm\5$\23\2mn\5.\30\2no")
         buf.write(u"\5\"\22\2op\5,\27\2pq\5&\24\2q\37\3\2\2\2rs\7K\2\2s!")
         buf.write(u"\3\2\2\2tu\7K\2\2u#\3\2\2\2vw\7K\2\2w%\3\2\2\2xy\7K\2")
-        buf.write(u"\2y\'\3\2\2\2z{\7K\2\2{)\3\2\2\2|}\7L\2\2}+\3\2\2\2~")
+        buf.write(u"\2y\'\3\2\2\2z{\7K\2\2{)\3\2\2\2|}\7K\2\2}+\3\2\2\2~")
         buf.write(u"\177\t\2\2\2\177-\3\2\2\2\u0080\u0081\t\3\2\2\u0081/")
         buf.write(u"\3\2\2\2\u0082\u0083\7\31\2\2\u0083\61\3\2\2\2\u0084")
         buf.write(u"\u0088\7\16\2\2\u0085\u0086\7\16\2\2\u0086\u0088\7\60")
@@ -1318,8 +1318,8 @@ class MySQLParser ( Parser ):
             super(MySQLParser.Limit_valueContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def INT(self):
-            return self.getToken(MySQLParser.INT, 0)
+        def ID(self):
+            return self.getToken(MySQLParser.ID, 0)
 
         def getRuleIndex(self):
             return MySQLParser.RULE_limit_value
@@ -1348,7 +1348,7 @@ class MySQLParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 122
-            self.match(MySQLParser.INT)
+            self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

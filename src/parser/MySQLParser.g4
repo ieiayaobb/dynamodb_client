@@ -84,7 +84,7 @@ insert_value:
         ;
 
 limit_value:
-        INT
+        ID
         ;
 
 relational_op:

@@ -94,7 +94,7 @@ class Visitor(MySQLParserVisitor):
                 if columns:
                     result = self.dynamodb.scan(table_name, AttributesToGet=columns, Limit=limit)
                 else:
-                    result = self.dynamodb.scan(table_name,Limit=limit)
+                    result = self.dynamodb.scan(table_name, Limit=limit)
 
         return result
 
@@ -108,8 +108,7 @@ class Visitor(MySQLParserVisitor):
 
 if __name__ == "__main__":
     # print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
-    Parser.init(AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION, DYNAMODB_ENDPOINT)
+    dynamodb = DynamodbHandler(DYNAMODB_ENDPOINT,AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION)
+    Parser.init(dynamodb)
     print(
-        Parser.parse("select * from patent"))
-    print(
-        Parser.parse("desc matrix_result"))
+        Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN limit 1"))
