@@ -48,23 +48,21 @@
                                         <input type="hidden" id="index-name" name="index_name">
                                     </div>
 
-                                    <div class="col-xs-5 col-sm-5">
+                                    <div class="col-xs-7 col-sm-7">
                                         <div class="form-group">
                                             <span>Hash Key:</span>
                                             <input type="text" class="form-control" id="hash-key-field" name="hash_key"
                                                    placeholder="">
                                         </div>
-                                    </div>
-                                    <div class="col-xs-5 col-sm-5">
+
                                         <div class="form-group">
                                             <span>Range Key:</span>
                                             <input type="text" class="form-control" id="range-key-field" name="range_key"
                                                    placeholder="">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row operate-bar">
-                                    <div class="col-xs-offset-9 col-xs-3 col-sm-offset-9 col-sm-3">
+
+                                    <div class="col-xs-3 col-sm-3">
                                         <button type="submit" class="btn btn-success"><i
                                                 class="iconfont icon-querycondition"></i>查询
                                         </button>
@@ -101,11 +99,9 @@
                     <div id="console" class="panel-collapse collapse in">
                         <div class="panel-body console">
                             <ul>
-                                <li>Scan table</li>
-                                <li>Scan table</li>
-                                <li>Scan table</li>
-                                <li>Scan table</li>
-                                <li>Scan table</li>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -121,9 +117,12 @@
                     <div id="detail" class="panel-collapse collapse in">
                         <ul class="list-group">
                             <li class="list-group-item"><span>总数量:</span><strong>{{ count }}</strong></li>
-                            <li class="list-group-item"><span>Stream信息:</span></li>
-                            <li class="list-group-item"><span>Global Secondary Index:</span></li>
-                            <li class="list-group-item"><span>Local Secondary Index:</span></li>
+                            {% if 'LatestStreamArn' in current_table %}
+                            <li class="list-group-item"><span>LatestStreamArn:{{ current_table['LatestStreamArn'] }}</span></li>
+                            {% endif %}
+                            {% if 'LatestStreamLabel' in current_table %}
+                            <li class="list-group-item"><span>LatestStreamLabel:{{ current_table['LatestStreamLabel'] }}</span></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -135,6 +134,7 @@
 
 {% block javascript %}
 <script src="{{url_for('static', filename='js/bootstrap-select.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/socket.io-1.4.5.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("body").click(function (e) {
@@ -159,15 +159,15 @@
         function show_popover($target) {
             $("#edit-item").width(155).height(40).val($target.children(".data-item-val").text())
 
-            var top = $target.offset().top
-            var left = $target.offset().left + 100
+            var top = $target.offset().top;
+            var left = $target.offset().left + 100;
 
             $("#popover-panel").show().css({
                 top: top,
                 left: left
             })
         }
-        var table_keys = {}
+        var table_keys = {};
         {% for key_schema in current_table['KeySchema'] %}
             table_keys['{{ key_schema['KeyType']}}'] = '{{ key_schema['AttributeName']}}'
         {% endfor %}
@@ -197,6 +197,11 @@
 
             $("#index-name").val($(this).val())
         });
+
+//        var socket = io();
+//        socket.on('connect', function() {
+//            socket.emit('link', {data: 'I\'m connected!'});
+//        });
     })
 </script>
 {% block inner_javascript %}{% endblock %}

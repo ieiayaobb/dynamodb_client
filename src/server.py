@@ -1,5 +1,6 @@
 import threading
 import logging
+import socketio
 
 import collections
 from flask import Flask, url_for, redirect, session
@@ -10,19 +11,22 @@ from dynamodb_handler import DynamodbHandler
 from src.config.Constant import *
 from src.parser.Parser import *
 
+# sio = socketio.Server(logger=True)
 app = Flask(__name__)
 app.secret_key = "hackthon"
+
+# app.wsgi_app = socketio.Middleware(sio, app.wsgi_app)
 
 logger = logging.getLogger("")
 
 dynamodb_handler_dic = {}
 
-@app.route("/connect", methods=['GET'])
+@app.route("/login", methods=['GET'])
 def get_connect():
     return render_template('connect.html')
 
 
-@app.route("/connect", methods=['POST'])
+@app.route("/login", methods=['POST'])
 def post_connect():
     endpoint = request.form['endpoint']
     access_key = request.form['access_key']
@@ -36,6 +40,8 @@ def post_connect():
                                            aws_secret_access_key=access_secret, region_name='')
 
     session['endpoint'] = endpoint
+    if not 'messages' in session:
+        session['messages'] = ['connect...']
 
     return redirect(url_for('table_view'))
 
@@ -61,6 +67,7 @@ def table_view(table_name=None):
         table_name = tables[0]
     last_evaluated_key = None
 
+    messages = session['messages']
     if request.method == "GET":
         last_evaluated_key = request.form.get('last_evaluated_key', None)
 
@@ -73,9 +80,10 @@ def table_view(table_name=None):
     if request.method == 'POST':
         terminal_text = request.form.get('terminal_text', None)
         logger.info("terminal_text:%s" % (terminal_text))
-
-        print Parser.parse(terminal_text)
-
+        items = Parser.parse(terminal_text)
+        if items:
+            messages.append(terminal_text)
+            session['messages'] = messages
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
@@ -92,7 +100,14 @@ def table_view(table_name=None):
 
     count = dynamodb_handler.count(table_name)
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name, count=count)
+
+
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name, count=count, messages=messages)
+
+
+# @sio.on('connect')
+# def connect(sid, environ):
+#     print("connect ", sid)
 
 
 def init_logger():
