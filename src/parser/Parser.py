@@ -18,10 +18,12 @@ from src.config.Constant import *
 from src.dynamodb_handler import DynamodbHandler
 from src.exception.ParseException import *
 
-dynamodb = DynamodbHandler(DYNAMODB_ENDPOINT, AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION)
-
 
 class Parser(MySQLParserVisitor):
+    @classmethod
+    def init(cls, key, secret, region, endpoint):
+        cls.dynamodb = DynamodbHandler(endpoint, key, secret, region)
+
     @classmethod
     def parse(cls, statment):
         stream = InputStream(statment)
@@ -29,20 +31,23 @@ class Parser(MySQLParserVisitor):
         stream = CommonTokenStream(lexer)
         parser = MySQLParser(stream)
         tree = parser.stat()
-        visitor = Visitor()
+        visitor = Visitor(cls.dynamodb)
         if isinstance(visitor, ParseTreeVisitor):
             parsed_stat = visitor.visit(tree)
         return parsed_stat
 
 
 class Visitor(MySQLParserVisitor):
+    def __init__(self, dynamodb):
+        self.dynamodb = dynamodb
+
     def visitSelect_clause(self, ctx):
         if isinstance(ctx, MySQLParser.Select_clauseContext):
             # handle table name
             table_name = ctx.table_name().getText()
             columns = []
             key = {}
-            table_exist = dynamodb.desc_table(table_name)
+            table_exist = self.dynamodb.desc_table(table_name)
             if table_exist:
                 # handle columns
                 column_clause = ctx.column_list_clause()
@@ -55,40 +60,47 @@ class Visitor(MySQLParserVisitor):
                         pass
                     else:
                         raise ParseException("Illegal column : %s" % column_clause.getText())
-                # handle where clause
-                    where_clause = ctx.where_clause(); # where id=3 and user=lyc
+                        # handle where clause
+                    where_clause = ctx.where_clause();  # where id=3 and user=lyc
                     if where_clause:
                         if isinstance(where_clause, MySQLParser.Where_clauseContext):
                             if where_clause.hash_expression():
                                 hash_expression = where_clause.hash_expression()
-                                if isinstance(hash_expression, MySQLParser.hash_expression()):
+                                if isinstance(hash_expression, MySQLParser.Hash_expressionContext):
                                     key[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
                             elif where_clause.hash_range_expression():
                                 hash_range_expression = where_clause.hash_range_expression();
-                                if isinstance(hash_range_expression , MySQLParser.hash_range_expression()):
-                                    key[hash_range_expression.hash_key.getText()] = hash_range_expression.hash_value().getText()
-                                    key[hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+                                if isinstance(hash_range_expression, MySQLParser.Hash_range_expressionContext):
+                                    key[
+                                        hash_range_expression.hash_key().getText()] = hash_range_expression.hash_value().getText()
+                                    key[
+                                        hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
                             else:
                                 raise ParseException("Illegal where clause : %s" % where_clause.getText())
             else:
                 raise ParseException("table %s not exist" % table_name)
             # get items
+            result = None
             if where_clause:
-                pass
+                result = self.dynamodb.get_item(table_name, key, columns)
             else:
-                pass
+                if columns:
+                    result = self.dynamodb.scan(table_name, columns)
+                else:
+                    result = self.dynamodb.scan(table_name)
 
-            print(ctx.table_name().getText())
-            print(ctx.column_list_clause().getText())
-        return self.visitChildren(ctx)
+        return result
 
     def visitDesc_clause(self, ctx):
         if isinstance(ctx, MySQLParser.Desc_clauseContext):
             table_name = ctx.table_name().getText()
             if table_name:
-                result = dynamodb.desc_table(table_name)
+                result = self.dynamodb.desc_table(table_name)
         return result
 
 
 if __name__ == "__main__":
-    print(Parser.parse("desc matrix_resu"))
+    # print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
+    Parser.init(AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION, DYNAMODB_ENDPOINT)
+    print(
+        Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN"))
