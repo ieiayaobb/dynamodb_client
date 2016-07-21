@@ -105,10 +105,29 @@ class Visitor(MySQLParserVisitor):
                 result = self.dynamodb.desc_table(table_name)
         return result
 
+    def visitInsert_clause(self, ctx):
+        if isinstance(ctx, MySQLParser.Insert_clauseContext):
+            # handle table name
+            table_name = ctx.table_name().getText()
+            item = {}
+            table_exist = self.dynamodb.desc_table(table_name)
+            if table_exist:
+                # handle insert column
+                insert_expressions = ctx.insert_expression()
+                for expression in insert_expressions:
+                    if isinstance(expression, MySQLParser.Insert_expressionContext):
+                        item[expression.column_name().getText()] = expression.insert_value().getText()
+            else:
+                raise ParseException("table %s not exist" % table_name)
+            # do insert
+            result = self.dynamodb.put_item(table_name,item)
+        return result
+
 
 if __name__ == "__main__":
     # print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
     dynamodb = DynamodbHandler(DYNAMODB_ENDPOINT,AWS_ACCESS_KEY, AWS_ACCESS_SECRET, AWS_REGION)
     Parser.init(dynamodb)
     print(
-        Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN limit 1"))
+         Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN limit 1"))
+    print(Parser.parse("insert into matrix_history_test values(id=Oik4M6ymeIBwEiF6jVCLpMkH6F8CbAZA,user_id=2323,job_status=FAILED)"))

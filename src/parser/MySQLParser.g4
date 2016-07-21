@@ -7,7 +7,7 @@ options {
 
 
 
-stat:select_clause|desc_clause;
+stat:select_clause|desc_clause|insert_clause;
 
 schema_name:
     ID
@@ -18,6 +18,14 @@ desc_clause:
 
 select_clause:
             SELECT column_list_clause FROM table_name (where_clause)? (limit_clause)?
+            ;
+
+insert_clause:
+            INSERT INTO table_name VALUES LPAREN (COMMA? insert_expression)+ RPAREN
+            ;
+
+insert_expression:
+            column_name eq_op insert_value
             ;
 
 limit_clause:
@@ -56,11 +64,11 @@ where_clause:
 		;
 
 hash_expression:
-        WHERE hash_key relational_op hash_value
+        WHERE hash_key eq_op hash_value
         ;
 
 hash_range_expression:
-        WHERE hash_key relational_op hash_value expr_op range_key relational_op range_value
+        WHERE hash_key eq_op hash_value expr_op range_key eq_op range_value
         ;
 
 hash_key:
@@ -89,6 +97,10 @@ limit_value:
 
 relational_op:
 		EQ | LTH | GTH | NOT_EQ | LET | GET  ;
+
+eq_op:
+    EQ
+    ;
 
 expr_op:
 		AND | XOR | OR | NOT;

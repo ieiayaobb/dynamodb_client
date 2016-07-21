@@ -40,6 +40,24 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MySQLParser#insert_clause.
+    def enterInsert_clause(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#insert_clause.
+    def exitInsert_clause(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#insert_expression.
+    def enterInsert_expression(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#insert_expression.
+    def exitInsert_expression(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by MySQLParser#limit_clause.
     def enterLimit_clause(self, ctx):
         pass
@@ -199,6 +217,15 @@ class MySQLParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by MySQLParser#relational_op.
     def exitRelational_op(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#eq_op.
+    def enterEq_op(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#eq_op.
+    def exitEq_op(self, ctx):
         pass
 
 

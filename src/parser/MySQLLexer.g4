@@ -4,10 +4,10 @@ lexer grammar MySQLLexer;
 }
 
 SELECT: 'select'|'SELECT';
-INSERT: 'insert';
+INSERT: 'insert'|'INSERT';
 DESC:'desc'|'DESC';
 INTO: 'into'|'INTO';
-VALUES: 'values';
+VALUES: 'values'|'VALUES';
 FROM: 'from'|'FROM';
 WHERE: 'where'|'WHERE';
 LIMIT: 'limit'|'LIMIT';

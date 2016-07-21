@@ -36,7 +36,7 @@ class DynamodbHandler:
 
     def scan(self, table_name, **kwargs):
         change_kwargs = kwargs.copy()
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             if not v:
                 change_kwargs.pop(k)
 
@@ -53,6 +53,13 @@ class DynamodbHandler:
                 return talbe.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
             else:
                 return talbe.get_item(TableName=table_name, Key=key)
+        except Exception as e:
+            logging.error(e.message)
+
+    def put_item(self, table_name, item):
+        try:
+            table = self.dynamodb.Table(table_name)
+            return table.put_item(Item=item)
         except Exception as e:
             logging.error(e.message)
 
