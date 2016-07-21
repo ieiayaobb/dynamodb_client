@@ -23,19 +23,20 @@
     </table>
 </div>
 
-<nav>
-    <ul class="pagination">
-        <li>
-            <a href="/table/{{ table_name }}?last_evaluated_key={{ last_evaluated_key }}?pagination=previous" aria-label="Previous">
-                <span aria-hidden="true">上一页</span>
-            </a>
-        </li>
-        <li>
-            <a href="/table/{{ table_name }}?last_evaluated_key={{ last_evaluated_key }}?pagination=next" aria-label="Next">
-                <span aria-hidden="true">下一页</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+<ul id="pagination-demo" class="pagination-sm"></ul>
+{% endblock %}
 
+{% block javascript %}
+<script src="{{url_for('static', filename='js/jquery.twbsPagination.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('#pagination-demo').twbsPagination({
+            totalPages: 35,
+            visiblePages: 7,
+            onPageClick: function (event, page) {
+                $('#page-content').text('Page ' + page);
+            }
+        });
+    })
+</script>
 {% endblock %}
