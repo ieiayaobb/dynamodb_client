@@ -1,1 +1,2 @@
 LOG_PATH = '/opt/logs'
+TABLE_SCAN_LIMIT = 20

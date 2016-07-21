@@ -1,10 +1,12 @@
 import boto3 as boto3
 import logging
 
+from src.config import Constant
+
 
 class DynamodbHandler:
     def __init__(self, endpoint_url, aws_access_key_id, aws_secret_access_key, region_name):
-        self._scan_limit = 10
+        self._scan_limit = Constant.TABLE_SCAN_LIMIT
 
         self.dynamodb = boto3.resource('dynamodb',
                                        # endpoint_url='http://s-identity-qa-public-elb-1977034329.cn-north-1.elb.amazonaws.com.cn:8000'
