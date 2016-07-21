@@ -46,7 +46,11 @@ def index():
 @app.route("/table/", methods=['POST', 'GET'])
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
 def table_view(table_name=None):
-    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
+    endpoint = session['endpoint']
+    if endpoint in dynamodb_handler_dic:
+        dynamodb_handler = dynamodb_handler_dic[endpoint]
+    else:
+        return redirect(url_for('get_connect'))
 
     tables = dynamodb_handler.list_tables()
 

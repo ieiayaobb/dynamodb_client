@@ -7,7 +7,7 @@
 <div class="popover right" id="popover-panel">
   <div class="arrow"></div>
   <div class="popover-content">
-    <input class="edit-item" type="text" value="9999" />
+    <input class="edit-item" id="edit-item" type="text" value="9999" />
   </div>
 </div>
 <div class="container-fluid">
@@ -104,17 +104,34 @@
     $(document).ready(function(){
         $("body").click(function(e){
             if ($(e.target).hasClass("data-item")){
-                var top = $(e.target).offset().top
-                var left = $(e.target).offset().left + 100
+                $target = $(e.target)
+                show_popover($target)
 
-                $("#popover-panel").show().css({
-                    top: top,
-                    left: left
-                })
-            }else {
+            } else if ($(e.target).hasClass("data-item-val")) {
+                $target = $(e.target).parent()
+                show_popover($target)
+            } else if ($(e.target).hasClass("edit-item")) {
+
+            } else {
                 $("#popover-panel").hide()
             }
+        });
+
+        $("#edit-item").blur(function(){
+            console.log('update')
         })
+
+        function show_popover($target){
+            $("#edit-item").val($target.children(".data-item-val").text())
+
+            var top = $target.offset().top
+            var left = $target.offset().left + 100
+
+            $("#popover-panel").show().css({
+                top: top,
+                left: left
+            })
+        }
     })
 </script>
 {% endblock %}

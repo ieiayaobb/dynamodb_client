@@ -58,23 +58,6 @@
 <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("body").click(function(e){
-            if ($(e.target).hasClass("data-item")){
-                var top = $(e.target).offset().top
-                var left = $(e.target).offset().left + 100
-
-                $("#popover-panel").show().css({
-                    top: top,
-                    left: left
-                })
-            }else {
-                $("#popover-panel").hide()
-            }
-        })
-    })
-</script>
 {% block javascript %}{% endblock %}
 
 </body>
