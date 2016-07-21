@@ -63,6 +63,7 @@ class DynamodbHandler:
         except Exception as e:
             logging.error(e.message)
 
+
     def desc_table(self, table_name):
         try:
             return self.dynamodb_client.describe_table(TableName=table_name)

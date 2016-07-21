@@ -123,6 +123,39 @@ class Visitor(MySQLParserVisitor):
             result = self.dynamodb.put_item(table_name,item)
         return result
 
+    def visitUpdate_clause(self, ctx):
+        if isinstance(ctx, MySQLParser.Update_clauseContext):
+            # handle table name
+            table_name = ctx.table_name().getText()
+            item = {}
+            table_exist = self.dynamodb.desc_table(table_name)
+            if table_exist:
+                update_expression = ctx.update_expression()
+                for expression in update_expression:
+                    if isinstance(expression, MySQLParser.Update_expressionContext):
+                        item[expression.column_name().getText()] = expression.update_value().getText()
+                where_clause = ctx.where_clause()
+                if where_clause:
+                    if isinstance(where_clause, MySQLParser.Where_clauseContext):
+                        if where_clause.hash_expression():
+                            hash_expression = where_clause.hash_expression()
+                            if isinstance(hash_expression, MySQLParser.Hash_expressionContext):
+                                item[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
+                        elif where_clause.hash_range_expression():
+                            hash_range_expression = where_clause.hash_range_expression();
+                            if isinstance(hash_range_expression, MySQLParser.Hash_range_expressionContext):
+                                item[
+                                    hash_range_expression.hash_key().getText()] = hash_range_expression.hash_value().getText()
+                                item[
+                                    hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+                        else:
+                            raise ParseException("Illegal where clause : %s" % where_clause.getText())
+            else:
+                raise ParseException("table %s not exist" % table_name)
+            # do update
+            result = self.dynamodb.put_item(table_name, item)
+        return result
+
 
 if __name__ == "__main__":
     # print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
@@ -130,4 +163,5 @@ if __name__ == "__main__":
     Parser.init(dynamodb)
     print(
          Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN limit 1"))
-    print(Parser.parse("insert into matrix_history_test values(id=Oik4M6ymeIBwEiF6jVCLpMkH6F8CbAZA,user_id=2323,job_status=FAILED)"))
+    print(Parser.parse("insert into matrix_history_test values(id=Oik4M6ymeIBwEiF6jVCLpMkH6F8CbAZA,user_id=22323,job_status=FAILED)"))
+    print(Parser.parse("update matrix_history_test set user_id=1111 where id=Oik4M6ymeIBwEiF6jVCLpMkH6F8CbAZA"))

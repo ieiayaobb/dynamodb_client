@@ -58,6 +58,24 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MySQLParser#update_clause.
+    def enterUpdate_clause(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_clause.
+    def exitUpdate_clause(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#update_expression.
+    def enterUpdate_expression(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_expression.
+    def exitUpdate_expression(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by MySQLParser#limit_clause.
     def enterLimit_clause(self, ctx):
         pass
@@ -199,6 +217,15 @@ class MySQLParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by MySQLParser#insert_value.
     def exitInsert_value(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#update_value.
+    def enterUpdate_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#update_value.
+    def exitUpdate_value(self, ctx):
         pass
 
 

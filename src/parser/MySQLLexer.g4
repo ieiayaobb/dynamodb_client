@@ -6,6 +6,8 @@ lexer grammar MySQLLexer;
 SELECT: 'select'|'SELECT';
 INSERT: 'insert'|'INSERT';
 DESC:'desc'|'DESC';
+UPDATE:'update'|'UPDATE';
+SET:'set'|'SET';
 INTO: 'into'|'INTO';
 VALUES: 'values'|'VALUES';
 FROM: 'from'|'FROM';

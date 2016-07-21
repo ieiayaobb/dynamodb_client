@@ -7,7 +7,7 @@ options {
 
 
 
-stat:select_clause|desc_clause|insert_clause;
+stat:select_clause|desc_clause|insert_clause|update_clause;
 
 schema_name:
     ID
@@ -21,11 +21,19 @@ select_clause:
             ;
 
 insert_clause:
-            INSERT INTO table_name VALUES LPAREN (COMMA? insert_expression)+ RPAREN
+            INSERT INTO table_name VALUES LPAREN? (COMMA? insert_expression)+ RPAREN?
             ;
 
 insert_expression:
             column_name eq_op insert_value
+            ;
+
+update_clause:
+            UPDATE table_name SET (COMMA? update_expression)+ where_clause
+            ;
+
+update_expression:
+            column_name eq_op update_value
             ;
 
 limit_clause:
@@ -88,6 +96,10 @@ range_value:
         ;
 
 insert_value:
+        ID
+        ;
+
+update_value:
         ID
         ;
 
