@@ -60,7 +60,7 @@ def table_view(table_name=None):
     last_evaluated_key = None
 
     if request.method == "GET":
-        last_evaluated_key =  request.form.get('last_evaluated_key', None)
+        last_evaluated_key = request.form.get('last_evaluated_key', None)
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
@@ -72,7 +72,7 @@ def table_view(table_name=None):
     for table_item in table_items['Items']:
         keys = table_item.keys()
         for key in keys:
-            if table_headers.has_key(key):
+            if not table_headers.has_key(key):
                 table_headers[key] = table_item[key].items()[0][0]
 
     return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers)
