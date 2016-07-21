@@ -3,6 +3,8 @@ import collections
 from flask import Flask, url_for, redirect, session
 from flask import render_template
 from flask import request
+
+from src.config import Constant
 from src.parser.Parser import *
 
 # sio = socketio.Server(logger=True)
@@ -72,6 +74,8 @@ def table_view(table_name=None):
     if page_items_history:
         page_items_history = ast.literal_eval(page_items_history)
 
+    current_table = dynamodb_handler.get_table(table_name)
+
     messages = session['messages']
     if request.method == "GET":
         hash_key = request.form.get('hash_key', None)
@@ -80,6 +84,9 @@ def table_view(table_name=None):
         range_key = request.form.get('range_key', None)
         logger.info("range_key:%s" % (range_key))
 
+
+
+
     if request.method == 'POST':
         terminal_text = request.form.get('terminal_text', None)
         logger.info("terminal_text:%s" % (terminal_text))
@@ -87,8 +94,6 @@ def table_view(table_name=None):
         if items:
             messages.append(terminal_text)
             session['messages'] = messages
-
-    current_table = dynamodb_handler.get_table(table_name)
 
     page_items = None
 
@@ -127,6 +132,7 @@ def table_view(table_name=None):
                            current_table=current_table,
                            table_items=page_items,
                            current_page_size=current_page_size,
+                           page_item_limit=Constant.TABLE_SCAN_LIMIT,
                            last_evaluated_key=last_evaluated_key,
                            page_items_history=page_items_history,
                            count=count,
