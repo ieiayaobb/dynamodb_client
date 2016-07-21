@@ -113,8 +113,6 @@ def table_view(table_name=None):
 
     page_items = None
 
-
-
     count = dynamodb_handler.count(table_name)
 
     messages = session['messages']
