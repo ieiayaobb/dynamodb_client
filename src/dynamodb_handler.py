@@ -41,7 +41,8 @@ class DynamodbHandler:
 
         try:
             table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, **change_kwargs)
-            last_evaluated_key = table_items['LastEvaluatedKey']
+
+            last_evaluated_key = table_items.get('LastEvaluatedKey', None)
             return table_items['Items'], last_evaluated_key
         except Exception as e:
             logging.error(e.message)
