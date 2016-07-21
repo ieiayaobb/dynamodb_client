@@ -1,13 +1,8 @@
-import threading
-import logging
-
+import ast
 import collections
 from flask import Flask, url_for, redirect, session
 from flask import render_template
 from flask import request
-
-from dynamodb_handler import DynamodbHandler
-from src.config.Constant import *
 from src.parser.Parser import *
 
 # sio = socketio.Server(logger=True)
