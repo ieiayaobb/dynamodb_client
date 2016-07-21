@@ -6,6 +6,6 @@ pip install -r requirements.txt
 npm install
 
 # Hot to run
-python server.pyy
+python server.py
 
 npm start
