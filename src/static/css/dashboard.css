@@ -9,7 +9,7 @@ body {
 }
 
 .console {
-    height: 300px;
+    height: 500px;
     color: #FFF;
     background-color: #434A54;
     overflow: auto;
@@ -132,7 +132,7 @@ body {
 }
 
 .table-responsive {
-    height:300px;
+    height:500px;
     overflow: auto;
 }
 
@@ -154,4 +154,17 @@ body {
     padding:4px;
     position: relative;
     top: 2px;
+}
+
+.popover{
+    max-width: none;
+}
+
+.panel-group-lists .panel-title a{
+    color: #FFF;
+    font-size: 18px;
+}
+
+.panel-group-lists .panel-title a:active, .panel-group-lists .panel-title a:focus, .panel-group-lists .panel-title a:hover{
+    color: #FFF;
 }
