@@ -55,32 +55,36 @@ class Visitor(MySQLParserVisitor):
                         pass
                     else:
                         raise ParseException("Illegal column : %s" % column_clause.getText())
-                # handle where clause
-                    where_clause = ctx.where_clause(); # where id=3 and user=lyc
+                        # handle where clause
+                    where_clause = ctx.where_clause();  # where id=3 and user=lyc
                     if where_clause:
                         if isinstance(where_clause, MySQLParser.Where_clauseContext):
                             if where_clause.hash_expression():
                                 hash_expression = where_clause.hash_expression()
-                                if isinstance(hash_expression, MySQLParser.hash_expression()):
+                                if isinstance(hash_expression, MySQLParser.Hash_expressionContext):
                                     key[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
                             elif where_clause.hash_range_expression():
                                 hash_range_expression = where_clause.hash_range_expression();
-                                if isinstance(hash_range_expression , MySQLParser.hash_range_expression()):
-                                    key[hash_range_expression.hash_key.getText()] = hash_range_expression.hash_value().getText()
-                                    key[hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+                                if isinstance(hash_range_expression, MySQLParser.Hash_range_expressionContext):
+                                    key[
+                                        hash_range_expression.hash_key().getText()] = hash_range_expression.hash_value().getText()
+                                    key[
+                                        hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
                             else:
                                 raise ParseException("Illegal where clause : %s" % where_clause.getText())
             else:
                 raise ParseException("table %s not exist" % table_name)
             # get items
+            result = None
             if where_clause:
-                pass
+                result = dynamodb.get_item(table_name, key, columns)
             else:
-                pass
+                if columns:
+                    result = dynamodb.scan(table_name, columns)
+                else:
+                    result = dynamodb.scan(table_name)
 
-            print(ctx.table_name().getText())
-            print(ctx.column_list_clause().getText())
-        return self.visitChildren(ctx)
+        return result
 
     def visitDesc_clause(self, ctx):
         if isinstance(ctx, MySQLParser.Desc_clauseContext):
@@ -91,4 +95,5 @@ class Visitor(MySQLParserVisitor):
 
 
 if __name__ == "__main__":
-    print(Parser.parse("desc matrix_resu"))
+    #print(Parser.parse("select message from matrix_result where id=0m3vfiesDmYMsvx34CcH55jgKdPipyOn"))
+     print(Parser.parse("select * from patent_abstract where patent_id=da5d3aec-1363-4717-80d2-853ace42e0e4 and lang=EN"))

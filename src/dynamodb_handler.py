@@ -44,6 +44,24 @@ class DynamodbHandler:
         except Exception as e:
             logging.error(e.message)
 
+    def scan(self, table_name, attributes_to_get):
+        try:
+            table_items = self.dynamodb_client.scan(TableName=table_name, attributes_to_get=attributes_to_get,
+                                                    Limit=self._scan_limit)
+            return table_items
+        except Exception as e:
+            logging.error(e.message)
+
+    def get_item(self, table_name, key, attributes_to_get):
+        try:
+            talbe = self.dynamodb.Table(table_name)
+            if attributes_to_get:
+                return talbe.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
+            else:
+                return talbe.get_item(TableName=table_name, Key=key)
+        except Exception as e:
+            logging.error(e.message)
+
     def desc_table(self, table_name):
         try:
             return self.dynamodb_client.describe_table(TableName=table_name)
