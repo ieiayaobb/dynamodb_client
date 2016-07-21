@@ -29,25 +29,19 @@ class DynamodbHandler:
     def get_table(self, table_name, last_evaluated_key=None):
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)
-            table_items = self.scan(table_name, last_evaluated_key)
+            table_items = self.scan(table_name, ExclusiveStartKey=last_evaluated_key)
             return table['Table'], table_items
         except Exception as e:
             logging.error(e.message)
 
-    def scan(self, table_name, last_evaluated_key):
-        try:
-            if last_evaluated_key != None:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, ExclusiveStartKey=last_evaluated_key)
-            else:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit)
-            return table_items
-        except Exception as e:
-            logging.error(e.message)
+    def scan(self, table_name, **kwargs):
+        change_kwargs = kwargs.copy()
+        for k,v in kwargs.items():
+            if not v:
+                change_kwargs.pop(k)
 
-    def scan(self, table_name, attributes_to_get):
         try:
-            table_items = self.dynamodb_client.scan(TableName=table_name, attributes_to_get=attributes_to_get,
-                                                    Limit=self._scan_limit)
+            table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, **change_kwargs)
             return table_items
         except Exception as e:
             logging.error(e.message)
