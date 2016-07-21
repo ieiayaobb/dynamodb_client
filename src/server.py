@@ -66,11 +66,13 @@ def table_view(table_name=None):
     hash_key_name = current_table['KeySchema'][0]['AttributeName']
     hash_key_type = current_table['KeySchema'][0]['AttributeType']
 
+    hash_key = request.form.get('hash_key', None)
+    logger.info("hash_key:%s" % (hash_key))
 
-    table_items = dynamodb_handler.scan(table_name, last_evaluated_key, pagination=pagination, hash_key_name=hash_key_name, hash_key_type=hash_key_type)
+    range_key = request.form.get('range_key', None)
+    logger.info("range_key:%s" % (range_key))
 
-
-    last_evaluated_key = table_items['LastEvaluatedKey'][hash_key_name].items()[0][1]
+    current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
     table_headers = collections.OrderedDict()
 
@@ -82,6 +84,8 @@ def table_view(table_name=None):
         for key in keys:
             if not table_headers.has_key(key):
                 table_headers[key] = table_item[key].items()[0][0]
+
+    count = dynamodb_handler.count(table_name)
 
     return render_template('table_detail.html',
                            tables=tables,

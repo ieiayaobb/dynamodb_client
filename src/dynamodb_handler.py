@@ -26,22 +26,51 @@ class DynamodbHandler:
     def list_tables(self):
         return self.dynamodb_client.list_tables()['TableNames']
 
-    def get_table(self, table_name):
+    def get_table(self, table_name, last_evaluated_key=None):
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)
-            return table['Table']
+            table_items = self.scan(table_name, ExclusiveStartKey=last_evaluated_key)
+            return table['Table'], table_items
         except Exception as e:
             logging.error(e.message)
 
-    def scan(self, table_name, last_evaluated_key=None, **kwargs):
-        try:
-            if "pagination" in kwargs.keys():
-                pass
+    def scan(self, table_name, **kwargs):
+        change_kwargs = kwargs.copy()
+        for k,v in kwargs.items():
+            if not v:
+                change_kwargs.pop(k)
 
-            if last_evaluated_key:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, ExclusiveStartKey=last_evaluated_key)
-            else:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit)
+        try:
+            table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, **change_kwargs)
             return table_items
         except Exception as e:
             logging.error(e.message)
+
+    def get_item(self, table_name, key, attributes_to_get):
+        try:
+            talbe = self.dynamodb.Table(table_name)
+            if attributes_to_get:
+                return talbe.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
+            else:
+                return talbe.get_item(TableName=table_name, Key=key)
+        except Exception as e:
+            logging.error(e.message)
+
+    def desc_table(self, table_name):
+        try:
+            return self.dynamodb_client.describe_table(TableName=table_name)
+        except Exception as e:
+            logging.error(e.message)
+
+    def count(self, table_name):
+        target_table = self.dynamodb.Table(table_name)
+        result = target_table.scan(Select='COUNT')
+        lastEvaluatedKey = result.get("LastEvaluatedKey")
+        count = result.get("Count")
+
+        while (lastEvaluatedKey != None):
+            result = target_table.scan(ExclusiveStartKey=lastEvaluatedKey, Select='COUNT')
+            lastEvaluatedKey = result.get("LastEvaluatedKey")
+            count = count + result.get("Count")
+
+        return count
