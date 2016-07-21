@@ -53,34 +53,33 @@ all_column:
         ASTERISK
         ;
 
-from_clause:
-		FROM table_name (COMMA table_name)*
-	;
-
 where_clause:
-		WHERE expression
+		hash_expression|hash_range_expression
 		;
 
-expression:
-		simple_expression (expr_op simple_expression)*
-	;
+hash_expression:
+        WHERE hash_key relational_op hash_value
+        ;
 
-element:
-		ID | INT
-	|   column_name
-	;
+hash_range_expression:
+        WHERE hash_key relational_op hash_value expr_op range_key relational_op range_value
+        ;
 
-right_element:
-		element
-	;
+hash_key:
+       ID
+       ;
 
-left_element:
-		element
-	;
+range_key:
+        ID
+        ;
 
-target_element:
-		element
-	;
+hash_value:
+        ID
+        ;
+
+range_value:
+        ID
+        ;
 
 relational_op:
 		EQ | LTH | GTH | NOT_EQ | LET | GET  ;
@@ -96,13 +95,7 @@ is_or_is_not:
 		IS | IS NOT
 	;
 
-simple_expression:
-		left_element relational_op right_element
-	|
-		target_element between_op left_element AND right_element
-	|
-		target_element is_or_is_not NULL
-	;
+
 
 //table_references:
 //        table_reference ( (COMMA table_reference) | join_clause )*

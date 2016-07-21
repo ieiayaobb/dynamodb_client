@@ -7,52 +7,40 @@ from io import StringIO
 def serializedATN():
     with StringIO() as buf:
         buf.write(u"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3")
-        buf.write(u"N\u0092\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t")
-        buf.write(u"\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r")
-        buf.write(u"\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4")
-        buf.write(u"\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30")
-        buf.write(u"\t\30\3\2\3\2\5\2\63\n\2\3\3\3\3\3\4\3\4\3\4\3\5\3\5")
-        buf.write(u"\3\5\3\5\3\5\5\5?\n\5\3\6\3\6\3\7\3\7\3\b\3\b\3\t\3\t")
-        buf.write(u"\3\t\5\tJ\n\t\3\n\3\n\3\13\3\13\3\13\6\13Q\n\13\r\13")
-        buf.write(u"\16\13R\3\f\3\f\3\r\3\r\3\r\3\r\7\r[\n\r\f\r\16\r^\13")
-        buf.write(u"\r\3\16\3\16\3\16\3\17\3\17\3\17\3\17\7\17g\n\17\f\17")
-        buf.write(u"\16\17j\13\17\3\20\3\20\3\20\5\20o\n\20\3\21\3\21\3\22")
-        buf.write(u"\3\22\3\23\3\23\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3")
-        buf.write(u"\27\3\27\5\27\u0080\n\27\3\30\3\30\3\30\3\30\3\30\3\30")
-        buf.write(u"\3\30\3\30\3\30\3\30\3\30\3\30\3\30\3\30\5\30\u0090\n")
-        buf.write(u"\30\3\30\2\2\31\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36")
-        buf.write(u" \"$&(*,.\2\4\4\2+.\60\61\4\2\n\f//\u0086\2\62\3\2\2")
-        buf.write(u"\2\4\64\3\2\2\2\6\66\3\2\2\2\b9\3\2\2\2\n@\3\2\2\2\f")
-        buf.write(u"B\3\2\2\2\16D\3\2\2\2\20I\3\2\2\2\22K\3\2\2\2\24M\3\2")
-        buf.write(u"\2\2\26T\3\2\2\2\30V\3\2\2\2\32_\3\2\2\2\34b\3\2\2\2")
-        buf.write(u"\36n\3\2\2\2 p\3\2\2\2\"r\3\2\2\2$t\3\2\2\2&v\3\2\2\2")
-        buf.write(u"(x\3\2\2\2*z\3\2\2\2,\177\3\2\2\2.\u008f\3\2\2\2\60\63")
-        buf.write(u"\5\b\5\2\61\63\5\6\4\2\62\60\3\2\2\2\62\61\3\2\2\2\63")
-        buf.write(u"\3\3\2\2\2\64\65\7J\2\2\65\5\3\2\2\2\66\67\7\5\2\2\67")
-        buf.write(u"8\5\n\6\28\7\3\2\2\29:\7\3\2\2:;\5\20\t\2;<\7\b\2\2<")
-        buf.write(u">\5\n\6\2=?\5\32\16\2>=\3\2\2\2>?\3\2\2\2?\t\3\2\2\2")
-        buf.write(u"@A\7J\2\2A\13\3\2\2\2BC\7J\2\2C\r\3\2\2\2DE\7J\2\2E\17")
-        buf.write(u"\3\2\2\2FJ\5\22\n\2GJ\5\24\13\2HJ\5\26\f\2IF\3\2\2\2")
-        buf.write(u"IG\3\2\2\2IH\3\2\2\2J\21\3\2\2\2KL\7J\2\2L\23\3\2\2\2")
-        buf.write(u"MP\7J\2\2NO\7\63\2\2OQ\7J\2\2PN\3\2\2\2QR\3\2\2\2RP\3")
-        buf.write(u"\2\2\2RS\3\2\2\2S\25\3\2\2\2TU\7$\2\2U\27\3\2\2\2VW\7")
-        buf.write(u"\b\2\2W\\\5\n\6\2XY\7\63\2\2Y[\5\n\6\2ZX\3\2\2\2[^\3")
-        buf.write(u"\2\2\2\\Z\3\2\2\2\\]\3\2\2\2]\31\3\2\2\2^\\\3\2\2\2_")
-        buf.write(u"`\7\t\2\2`a\5\34\17\2a\33\3\2\2\2bh\5.\30\2cd\5(\25\2")
-        buf.write(u"de\5.\30\2eg\3\2\2\2fc\3\2\2\2gj\3\2\2\2hf\3\2\2\2hi")
-        buf.write(u"\3\2\2\2i\35\3\2\2\2jh\3\2\2\2ko\7J\2\2lo\7K\2\2mo\5")
-        buf.write(u"\f\7\2nk\3\2\2\2nl\3\2\2\2nm\3\2\2\2o\37\3\2\2\2pq\5")
-        buf.write(u"\36\20\2q!\3\2\2\2rs\5\36\20\2s#\3\2\2\2tu\5\36\20\2")
-        buf.write(u"u%\3\2\2\2vw\t\2\2\2w\'\3\2\2\2xy\t\3\2\2y)\3\2\2\2z")
-        buf.write(u"{\7\30\2\2{+\3\2\2\2|\u0080\7\r\2\2}~\7\r\2\2~\u0080")
-        buf.write(u"\7/\2\2\177|\3\2\2\2\177}\3\2\2\2\u0080-\3\2\2\2\u0081")
-        buf.write(u"\u0082\5\"\22\2\u0082\u0083\5&\24\2\u0083\u0084\5 \21")
-        buf.write(u"\2\u0084\u0090\3\2\2\2\u0085\u0086\5$\23\2\u0086\u0087")
-        buf.write(u"\5*\26\2\u0087\u0088\5\"\22\2\u0088\u0089\7\n\2\2\u0089")
-        buf.write(u"\u008a\5 \21\2\u008a\u0090\3\2\2\2\u008b\u008c\5$\23")
-        buf.write(u"\2\u008c\u008d\5,\27\2\u008d\u008e\7\16\2\2\u008e\u0090")
-        buf.write(u"\3\2\2\2\u008f\u0081\3\2\2\2\u008f\u0085\3\2\2\2\u008f")
-        buf.write(u"\u008b\3\2\2\2\u0090/\3\2\2\2\13\62>IR\\hn\177\u008f")
+        buf.write(u"Nz\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4")
+        buf.write(u"\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
+        buf.write(u"\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t")
+        buf.write(u"\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\5")
+        buf.write(u"\2\61\n\2\3\3\3\3\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\5\5")
+        buf.write(u"=\n\5\3\6\3\6\3\7\3\7\3\b\3\b\3\t\3\t\3\t\5\tH\n\t\3")
+        buf.write(u"\n\3\n\3\13\3\13\3\13\6\13O\n\13\r\13\16\13P\3\f\3\f")
+        buf.write(u"\3\r\3\r\5\rW\n\r\3\16\3\16\3\16\3\16\3\16\3\17\3\17")
+        buf.write(u"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\21\3")
+        buf.write(u"\21\3\22\3\22\3\23\3\23\3\24\3\24\3\25\3\25\3\26\3\26")
+        buf.write(u"\3\27\3\27\3\27\5\27x\n\27\3\27\2\2\30\2\4\6\b\n\f\16")
+        buf.write(u"\20\22\24\26\30\32\34\36 \"$&(*,\2\4\4\2+.\60\61\4\2")
+        buf.write(u"\n\f//j\2\60\3\2\2\2\4\62\3\2\2\2\6\64\3\2\2\2\b\67\3")
+        buf.write(u"\2\2\2\n>\3\2\2\2\f@\3\2\2\2\16B\3\2\2\2\20G\3\2\2\2")
+        buf.write(u"\22I\3\2\2\2\24K\3\2\2\2\26R\3\2\2\2\30V\3\2\2\2\32X")
+        buf.write(u"\3\2\2\2\34]\3\2\2\2\36f\3\2\2\2 h\3\2\2\2\"j\3\2\2\2")
+        buf.write(u"$l\3\2\2\2&n\3\2\2\2(p\3\2\2\2*r\3\2\2\2,w\3\2\2\2.\61")
+        buf.write(u"\5\b\5\2/\61\5\6\4\2\60.\3\2\2\2\60/\3\2\2\2\61\3\3\2")
+        buf.write(u"\2\2\62\63\7J\2\2\63\5\3\2\2\2\64\65\7\5\2\2\65\66\5")
+        buf.write(u"\n\6\2\66\7\3\2\2\2\678\7\3\2\289\5\20\t\29:\7\b\2\2")
+        buf.write(u":<\5\n\6\2;=\5\30\r\2<;\3\2\2\2<=\3\2\2\2=\t\3\2\2\2")
+        buf.write(u">?\7J\2\2?\13\3\2\2\2@A\7J\2\2A\r\3\2\2\2BC\7J\2\2C\17")
+        buf.write(u"\3\2\2\2DH\5\22\n\2EH\5\24\13\2FH\5\26\f\2GD\3\2\2\2")
+        buf.write(u"GE\3\2\2\2GF\3\2\2\2H\21\3\2\2\2IJ\7J\2\2J\23\3\2\2\2")
+        buf.write(u"KN\7J\2\2LM\7\63\2\2MO\7J\2\2NL\3\2\2\2OP\3\2\2\2PN\3")
+        buf.write(u"\2\2\2PQ\3\2\2\2Q\25\3\2\2\2RS\7$\2\2S\27\3\2\2\2TW\5")
+        buf.write(u"\32\16\2UW\5\34\17\2VT\3\2\2\2VU\3\2\2\2W\31\3\2\2\2")
+        buf.write(u"XY\7\t\2\2YZ\5\36\20\2Z[\5&\24\2[\\\5\"\22\2\\\33\3\2")
+        buf.write(u"\2\2]^\7\t\2\2^_\5\36\20\2_`\5&\24\2`a\5\"\22\2ab\5(")
+        buf.write(u"\25\2bc\5 \21\2cd\5&\24\2de\5$\23\2e\35\3\2\2\2fg\7J")
+        buf.write(u"\2\2g\37\3\2\2\2hi\7J\2\2i!\3\2\2\2jk\7J\2\2k#\3\2\2")
+        buf.write(u"\2lm\7J\2\2m%\3\2\2\2no\t\2\2\2o\'\3\2\2\2pq\t\3\2\2")
+        buf.write(u"q)\3\2\2\2rs\7\30\2\2s+\3\2\2\2tx\7\r\2\2uv\7\r\2\2v")
+        buf.write(u"x\7/\2\2wt\3\2\2\2wu\3\2\2\2x-\3\2\2\2\b\60<GPVw")
         return buf.getvalue()
 
 
@@ -108,26 +96,24 @@ class MySQLParser ( Parser ):
     RULE_single_column = 8
     RULE_multi_column = 9
     RULE_all_column = 10
-    RULE_from_clause = 11
-    RULE_where_clause = 12
-    RULE_expression = 13
-    RULE_element = 14
-    RULE_right_element = 15
-    RULE_left_element = 16
-    RULE_target_element = 17
+    RULE_where_clause = 11
+    RULE_hash_expression = 12
+    RULE_hash_range_expression = 13
+    RULE_hash_key = 14
+    RULE_range_key = 15
+    RULE_hash_value = 16
+    RULE_range_value = 17
     RULE_relational_op = 18
     RULE_expr_op = 19
     RULE_between_op = 20
     RULE_is_or_is_not = 21
-    RULE_simple_expression = 22
 
     ruleNames =  [ u"stat", u"schema_name", u"desc_clause", u"select_clause", 
                    u"table_name", u"column_name", u"column_name_alias", 
                    u"column_list_clause", u"single_column", u"multi_column", 
-                   u"all_column", u"from_clause", u"where_clause", u"expression", 
-                   u"element", u"right_element", u"left_element", u"target_element", 
-                   u"relational_op", u"expr_op", u"between_op", u"is_or_is_not", 
-                   u"simple_expression" ]
+                   u"all_column", u"where_clause", u"hash_expression", u"hash_range_expression", 
+                   u"hash_key", u"range_key", u"hash_value", u"range_value", 
+                   u"relational_op", u"expr_op", u"between_op", u"is_or_is_not" ]
 
     EOF = Token.EOF
     SELECT=1
@@ -254,16 +240,16 @@ class MySQLParser ( Parser ):
         localctx = MySQLParser.StatContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_stat)
         try:
-            self.state = 48
+            self.state = 46
             token = self._input.LA(1)
             if token in [MySQLParser.SELECT]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 46
+                self.state = 44
                 self.select_clause()
 
             elif token in [MySQLParser.DESC]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 47
+                self.state = 45
                 self.desc_clause()
 
             else:
@@ -312,7 +298,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 2, self.RULE_schema_name)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 50
+            self.state = 48
             self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -361,9 +347,9 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_desc_clause)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 52
+            self.state = 50
             self.match(MySQLParser.DESC)
-            self.state = 53
+            self.state = 51
             self.table_name()
         except RecognitionException as re:
             localctx.exception = re
@@ -424,18 +410,18 @@ class MySQLParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 55
+            self.state = 53
             self.match(MySQLParser.SELECT)
-            self.state = 56
+            self.state = 54
             self.column_list_clause()
-            self.state = 57
+            self.state = 55
             self.match(MySQLParser.FROM)
-            self.state = 58
+            self.state = 56
             self.table_name()
-            self.state = 60
+            self.state = 58
             _la = self._input.LA(1)
             if _la==MySQLParser.WHERE:
-                self.state = 59
+                self.state = 57
                 self.where_clause()
 
 
@@ -482,7 +468,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_table_name)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 62
+            self.state = 60
             self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -527,7 +513,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_column_name)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 64
+            self.state = 62
             self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -572,7 +558,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_column_name_alias)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 66
+            self.state = 64
             self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -625,24 +611,24 @@ class MySQLParser ( Parser ):
         localctx = MySQLParser.Column_list_clauseContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_column_list_clause)
         try:
-            self.state = 71
+            self.state = 69
             self._errHandler.sync(self);
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 68
+                self.state = 66
                 self.single_column()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 69
+                self.state = 67
                 self.multi_column()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 70
+                self.state = 68
                 self.all_column()
                 pass
 
@@ -690,7 +676,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_single_column)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 73
+            self.state = 71
             self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -745,17 +731,17 @@ class MySQLParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 75
+            self.state = 73
             self.match(MySQLParser.ID)
-            self.state = 78 
+            self.state = 76 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 76
+                self.state = 74
                 self.match(MySQLParser.COMMA)
-                self.state = 77
+                self.state = 75
                 self.match(MySQLParser.ID)
-                self.state = 80 
+                self.state = 78 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==MySQLParser.COMMA):
@@ -804,81 +790,8 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_all_column)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 82
+            self.state = 80
             self.match(MySQLParser.ASTERISK)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class From_clauseContext(ParserRuleContext):
-
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.From_clauseContext, self).__init__(parent, invokingState)
-            self.parser = parser
-
-        def FROM(self):
-            return self.getToken(MySQLParser.FROM, 0)
-
-        def table_name(self, i=None):
-            if i is None:
-                return self.getTypedRuleContexts(MySQLParser.Table_nameContext)
-            else:
-                return self.getTypedRuleContext(MySQLParser.Table_nameContext,i)
-
-
-        def COMMA(self, i=None):
-            if i is None:
-                return self.getTokens(MySQLParser.COMMA)
-            else:
-                return self.getToken(MySQLParser.COMMA, i)
-
-        def getRuleIndex(self):
-            return MySQLParser.RULE_from_clause
-
-        def enterRule(self, listener):
-            if hasattr(listener, "enterFrom_clause"):
-                listener.enterFrom_clause(self)
-
-        def exitRule(self, listener):
-            if hasattr(listener, "exitFrom_clause"):
-                listener.exitFrom_clause(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitFrom_clause"):
-                return visitor.visitFrom_clause(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def from_clause(self):
-
-        localctx = MySQLParser.From_clauseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_from_clause)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 84
-            self.match(MySQLParser.FROM)
-            self.state = 85
-            self.table_name()
-            self.state = 90
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==MySQLParser.COMMA:
-                self.state = 86
-                self.match(MySQLParser.COMMA)
-                self.state = 87
-                self.table_name()
-                self.state = 92
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -893,11 +806,12 @@ class MySQLParser ( Parser ):
             super(MySQLParser.Where_clauseContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def WHERE(self):
-            return self.getToken(MySQLParser.WHERE, 0)
+        def hash_expression(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_expressionContext,0)
 
-        def expression(self):
-            return self.getTypedRuleContext(MySQLParser.ExpressionContext,0)
+
+        def hash_range_expression(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_range_expressionContext,0)
 
 
         def getRuleIndex(self):
@@ -923,13 +837,24 @@ class MySQLParser ( Parser ):
     def where_clause(self):
 
         localctx = MySQLParser.Where_clauseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_where_clause)
+        self.enterRule(localctx, 22, self.RULE_where_clause)
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 93
-            self.match(MySQLParser.WHERE)
-            self.state = 94
-            self.expression()
+            self.state = 84
+            self._errHandler.sync(self);
+            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            if la_ == 1:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 82
+                self.hash_expression()
+                pass
+
+            elif la_ == 2:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 83
+                self.hash_range_expression()
+                pass
+
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -938,67 +863,61 @@ class MySQLParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ExpressionContext(ParserRuleContext):
+    class Hash_expressionContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.ExpressionContext, self).__init__(parent, invokingState)
+            super(MySQLParser.Hash_expressionContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def simple_expression(self, i=None):
-            if i is None:
-                return self.getTypedRuleContexts(MySQLParser.Simple_expressionContext)
-            else:
-                return self.getTypedRuleContext(MySQLParser.Simple_expressionContext,i)
+        def WHERE(self):
+            return self.getToken(MySQLParser.WHERE, 0)
+
+        def hash_key(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_keyContext,0)
 
 
-        def expr_op(self, i=None):
-            if i is None:
-                return self.getTypedRuleContexts(MySQLParser.Expr_opContext)
-            else:
-                return self.getTypedRuleContext(MySQLParser.Expr_opContext,i)
+        def relational_op(self):
+            return self.getTypedRuleContext(MySQLParser.Relational_opContext,0)
+
+
+        def hash_value(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_valueContext,0)
 
 
         def getRuleIndex(self):
-            return MySQLParser.RULE_expression
+            return MySQLParser.RULE_hash_expression
 
         def enterRule(self, listener):
-            if hasattr(listener, "enterExpression"):
-                listener.enterExpression(self)
+            if hasattr(listener, "enterHash_expression"):
+                listener.enterHash_expression(self)
 
         def exitRule(self, listener):
-            if hasattr(listener, "exitExpression"):
-                listener.exitExpression(self)
+            if hasattr(listener, "exitHash_expression"):
+                listener.exitHash_expression(self)
 
         def accept(self, visitor):
-            if hasattr(visitor, "visitExpression"):
-                return visitor.visitExpression(self)
+            if hasattr(visitor, "visitHash_expression"):
+                return visitor.visitHash_expression(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def expression(self):
+    def hash_expression(self):
 
-        localctx = MySQLParser.ExpressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_expression)
-        self._la = 0 # Token type
+        localctx = MySQLParser.Hash_expressionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_hash_expression)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 96
-            self.simple_expression()
-            self.state = 102
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MySQLParser.AND) | (1 << MySQLParser.OR) | (1 << MySQLParser.XOR) | (1 << MySQLParser.NOT))) != 0):
-                self.state = 97
-                self.expr_op()
-                self.state = 98
-                self.simple_expression()
-                self.state = 104
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
+            self.state = 86
+            self.match(MySQLParser.WHERE)
+            self.state = 87
+            self.hash_key()
+            self.state = 88
+            self.relational_op()
+            self.state = 89
+            self.hash_value()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1007,69 +926,129 @@ class MySQLParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ElementContext(ParserRuleContext):
+    class Hash_range_expressionContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.ElementContext, self).__init__(parent, invokingState)
+            super(MySQLParser.Hash_range_expressionContext, self).__init__(parent, invokingState)
+            self.parser = parser
+
+        def WHERE(self):
+            return self.getToken(MySQLParser.WHERE, 0)
+
+        def hash_key(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_keyContext,0)
+
+
+        def relational_op(self, i=None):
+            if i is None:
+                return self.getTypedRuleContexts(MySQLParser.Relational_opContext)
+            else:
+                return self.getTypedRuleContext(MySQLParser.Relational_opContext,i)
+
+
+        def hash_value(self):
+            return self.getTypedRuleContext(MySQLParser.Hash_valueContext,0)
+
+
+        def expr_op(self):
+            return self.getTypedRuleContext(MySQLParser.Expr_opContext,0)
+
+
+        def range_key(self):
+            return self.getTypedRuleContext(MySQLParser.Range_keyContext,0)
+
+
+        def range_value(self):
+            return self.getTypedRuleContext(MySQLParser.Range_valueContext,0)
+
+
+        def getRuleIndex(self):
+            return MySQLParser.RULE_hash_range_expression
+
+        def enterRule(self, listener):
+            if hasattr(listener, "enterHash_range_expression"):
+                listener.enterHash_range_expression(self)
+
+        def exitRule(self, listener):
+            if hasattr(listener, "exitHash_range_expression"):
+                listener.exitHash_range_expression(self)
+
+        def accept(self, visitor):
+            if hasattr(visitor, "visitHash_range_expression"):
+                return visitor.visitHash_range_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def hash_range_expression(self):
+
+        localctx = MySQLParser.Hash_range_expressionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 26, self.RULE_hash_range_expression)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 91
+            self.match(MySQLParser.WHERE)
+            self.state = 92
+            self.hash_key()
+            self.state = 93
+            self.relational_op()
+            self.state = 94
+            self.hash_value()
+            self.state = 95
+            self.expr_op()
+            self.state = 96
+            self.range_key()
+            self.state = 97
+            self.relational_op()
+            self.state = 98
+            self.range_value()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+    class Hash_keyContext(ParserRuleContext):
+
+        def __init__(self, parser, parent=None, invokingState=-1):
+            super(MySQLParser.Hash_keyContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def ID(self):
             return self.getToken(MySQLParser.ID, 0)
 
-        def INT(self):
-            return self.getToken(MySQLParser.INT, 0)
-
-        def column_name(self):
-            return self.getTypedRuleContext(MySQLParser.Column_nameContext,0)
-
-
         def getRuleIndex(self):
-            return MySQLParser.RULE_element
+            return MySQLParser.RULE_hash_key
 
         def enterRule(self, listener):
-            if hasattr(listener, "enterElement"):
-                listener.enterElement(self)
+            if hasattr(listener, "enterHash_key"):
+                listener.enterHash_key(self)
 
         def exitRule(self, listener):
-            if hasattr(listener, "exitElement"):
-                listener.exitElement(self)
+            if hasattr(listener, "exitHash_key"):
+                listener.exitHash_key(self)
 
         def accept(self, visitor):
-            if hasattr(visitor, "visitElement"):
-                return visitor.visitElement(self)
+            if hasattr(visitor, "visitHash_key"):
+                return visitor.visitHash_key(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def element(self):
+    def hash_key(self):
 
-        localctx = MySQLParser.ElementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_element)
+        localctx = MySQLParser.Hash_keyContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 28, self.RULE_hash_key)
         try:
-            self.state = 108
-            self._errHandler.sync(self);
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 105
-                self.match(MySQLParser.ID)
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 106
-                self.match(MySQLParser.INT)
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 107
-                self.column_name()
-                pass
-
-
+            self.enterOuterAlt(localctx, 1)
+            self.state = 100
+            self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1078,44 +1057,43 @@ class MySQLParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class Right_elementContext(ParserRuleContext):
+    class Range_keyContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.Right_elementContext, self).__init__(parent, invokingState)
+            super(MySQLParser.Range_keyContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def element(self):
-            return self.getTypedRuleContext(MySQLParser.ElementContext,0)
-
+        def ID(self):
+            return self.getToken(MySQLParser.ID, 0)
 
         def getRuleIndex(self):
-            return MySQLParser.RULE_right_element
+            return MySQLParser.RULE_range_key
 
         def enterRule(self, listener):
-            if hasattr(listener, "enterRight_element"):
-                listener.enterRight_element(self)
+            if hasattr(listener, "enterRange_key"):
+                listener.enterRange_key(self)
 
         def exitRule(self, listener):
-            if hasattr(listener, "exitRight_element"):
-                listener.exitRight_element(self)
+            if hasattr(listener, "exitRange_key"):
+                listener.exitRange_key(self)
 
         def accept(self, visitor):
-            if hasattr(visitor, "visitRight_element"):
-                return visitor.visitRight_element(self)
+            if hasattr(visitor, "visitRange_key"):
+                return visitor.visitRange_key(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def right_element(self):
+    def range_key(self):
 
-        localctx = MySQLParser.Right_elementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_right_element)
+        localctx = MySQLParser.Range_keyContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 30, self.RULE_range_key)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 110
-            self.element()
+            self.state = 102
+            self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1124,44 +1102,43 @@ class MySQLParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class Left_elementContext(ParserRuleContext):
+    class Hash_valueContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.Left_elementContext, self).__init__(parent, invokingState)
+            super(MySQLParser.Hash_valueContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def element(self):
-            return self.getTypedRuleContext(MySQLParser.ElementContext,0)
-
+        def ID(self):
+            return self.getToken(MySQLParser.ID, 0)
 
         def getRuleIndex(self):
-            return MySQLParser.RULE_left_element
+            return MySQLParser.RULE_hash_value
 
         def enterRule(self, listener):
-            if hasattr(listener, "enterLeft_element"):
-                listener.enterLeft_element(self)
+            if hasattr(listener, "enterHash_value"):
+                listener.enterHash_value(self)
 
         def exitRule(self, listener):
-            if hasattr(listener, "exitLeft_element"):
-                listener.exitLeft_element(self)
+            if hasattr(listener, "exitHash_value"):
+                listener.exitHash_value(self)
 
         def accept(self, visitor):
-            if hasattr(visitor, "visitLeft_element"):
-                return visitor.visitLeft_element(self)
+            if hasattr(visitor, "visitHash_value"):
+                return visitor.visitHash_value(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def left_element(self):
+    def hash_value(self):
 
-        localctx = MySQLParser.Left_elementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_left_element)
+        localctx = MySQLParser.Hash_valueContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 32, self.RULE_hash_value)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 112
-            self.element()
+            self.state = 104
+            self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1170,44 +1147,43 @@ class MySQLParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class Target_elementContext(ParserRuleContext):
+    class Range_valueContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.Target_elementContext, self).__init__(parent, invokingState)
+            super(MySQLParser.Range_valueContext, self).__init__(parent, invokingState)
             self.parser = parser
 
-        def element(self):
-            return self.getTypedRuleContext(MySQLParser.ElementContext,0)
-
+        def ID(self):
+            return self.getToken(MySQLParser.ID, 0)
 
         def getRuleIndex(self):
-            return MySQLParser.RULE_target_element
+            return MySQLParser.RULE_range_value
 
         def enterRule(self, listener):
-            if hasattr(listener, "enterTarget_element"):
-                listener.enterTarget_element(self)
+            if hasattr(listener, "enterRange_value"):
+                listener.enterRange_value(self)
 
         def exitRule(self, listener):
-            if hasattr(listener, "exitTarget_element"):
-                listener.exitTarget_element(self)
+            if hasattr(listener, "exitRange_value"):
+                listener.exitRange_value(self)
 
         def accept(self, visitor):
-            if hasattr(visitor, "visitTarget_element"):
-                return visitor.visitTarget_element(self)
+            if hasattr(visitor, "visitRange_value"):
+                return visitor.visitRange_value(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def target_element(self):
+    def range_value(self):
 
-        localctx = MySQLParser.Target_elementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_target_element)
+        localctx = MySQLParser.Range_valueContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 34, self.RULE_range_value)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 114
-            self.element()
+            self.state = 106
+            self.match(MySQLParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1267,7 +1243,7 @@ class MySQLParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 116
+            self.state = 108
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MySQLParser.EQ) | (1 << MySQLParser.LTH) | (1 << MySQLParser.GTH) | (1 << MySQLParser.NOT_EQ) | (1 << MySQLParser.LET) | (1 << MySQLParser.GET))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1326,7 +1302,7 @@ class MySQLParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 118
+            self.state = 110
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MySQLParser.AND) | (1 << MySQLParser.OR) | (1 << MySQLParser.XOR) | (1 << MySQLParser.NOT))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1375,7 +1351,7 @@ class MySQLParser ( Parser ):
         self.enterRule(localctx, 40, self.RULE_between_op)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 120
+            self.state = 112
             self.match(MySQLParser.BETWEEN)
         except RecognitionException as re:
             localctx.exception = re
@@ -1422,128 +1398,21 @@ class MySQLParser ( Parser ):
         localctx = MySQLParser.Is_or_is_notContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_is_or_is_not)
         try:
-            self.state = 125
+            self.state = 117
             self._errHandler.sync(self);
-            la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 122
+                self.state = 114
                 self.match(MySQLParser.IS)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 123
+                self.state = 115
                 self.match(MySQLParser.IS)
-                self.state = 124
+                self.state = 116
                 self.match(MySQLParser.NOT)
-                pass
-
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class Simple_expressionContext(ParserRuleContext):
-
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(MySQLParser.Simple_expressionContext, self).__init__(parent, invokingState)
-            self.parser = parser
-
-        def left_element(self):
-            return self.getTypedRuleContext(MySQLParser.Left_elementContext,0)
-
-
-        def relational_op(self):
-            return self.getTypedRuleContext(MySQLParser.Relational_opContext,0)
-
-
-        def right_element(self):
-            return self.getTypedRuleContext(MySQLParser.Right_elementContext,0)
-
-
-        def target_element(self):
-            return self.getTypedRuleContext(MySQLParser.Target_elementContext,0)
-
-
-        def between_op(self):
-            return self.getTypedRuleContext(MySQLParser.Between_opContext,0)
-
-
-        def AND(self):
-            return self.getToken(MySQLParser.AND, 0)
-
-        def is_or_is_not(self):
-            return self.getTypedRuleContext(MySQLParser.Is_or_is_notContext,0)
-
-
-        def NULL(self):
-            return self.getToken(MySQLParser.NULL, 0)
-
-        def getRuleIndex(self):
-            return MySQLParser.RULE_simple_expression
-
-        def enterRule(self, listener):
-            if hasattr(listener, "enterSimple_expression"):
-                listener.enterSimple_expression(self)
-
-        def exitRule(self, listener):
-            if hasattr(listener, "exitSimple_expression"):
-                listener.exitSimple_expression(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitSimple_expression"):
-                return visitor.visitSimple_expression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def simple_expression(self):
-
-        localctx = MySQLParser.Simple_expressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_simple_expression)
-        try:
-            self.state = 141
-            self._errHandler.sync(self);
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 127
-                self.left_element()
-                self.state = 128
-                self.relational_op()
-                self.state = 129
-                self.right_element()
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 131
-                self.target_element()
-                self.state = 132
-                self.between_op()
-                self.state = 133
-                self.left_element()
-                self.state = 134
-                self.match(MySQLParser.AND)
-                self.state = 135
-                self.right_element()
-                pass
-
-            elif la_ == 3:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 137
-                self.target_element()
-                self.state = 138
-                self.is_or_is_not()
-                self.state = 139
-                self.match(MySQLParser.NULL)
                 pass
 
 

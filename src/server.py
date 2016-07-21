@@ -1,6 +1,7 @@
 import threading
 import logging
 
+import collections
 from flask import Flask, url_for, redirect, session
 from flask import render_template
 from flask import request
@@ -15,13 +16,6 @@ app.secret_key = "hackthon"
 logger = logging.getLogger("")
 
 dynamodb_handler_dic = {}
-
-@app.route("/dashboard")
-def dashboard():
-    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
-    tables = dynamodb_handler.list_tables()
-    return render_template('dashboard.html', tables=tables)
-
 
 @app.route("/connect", methods=['GET'])
 def get_connect():
@@ -43,26 +37,45 @@ def post_connect():
 
     session['endpoint'] = endpoint
 
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('table_view'))
 
 
 @app.route("/")
 def index():
-    return redirect(url_for('connect'))
+    return redirect(url_for('get_connect'))
 
+@app.route("/table/", methods=['POST', 'GET'])
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
-def table_view(table_name):
-    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
+def table_view(table_name=None):
+    endpoint = session['endpoint']
+    if endpoint in dynamodb_handler_dic:
+        dynamodb_handler = dynamodb_handler_dic[endpoint]
+    else:
+        return redirect(url_for('get_connect'))
 
     tables = dynamodb_handler.list_tables()
+
+    if not table_name:
+        table_name = tables[0]
     last_evaluated_key = None
 
     if request.method == "GET":
-        last_evaluated_key =  request.form.get('last_evaluated_key', None)
+        last_evaluated_key = request.form.get('last_evaluated_key', None)
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items)
+    table_headers = collections.OrderedDict()
+
+    for attribute in current_table['AttributeDefinitions']:
+        table_headers[attribute['AttributeName']] = attribute['AttributeType']
+
+    for table_item in table_items['Items']:
+        keys = table_item.keys()
+        for key in keys:
+            if not table_headers.has_key(key):
+                table_headers[key] = table_item[key].items()[0][0]
+
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name)
 
 
 def init_logger():

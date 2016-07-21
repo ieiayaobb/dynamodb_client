@@ -41,22 +41,43 @@ class Visitor(MySQLParserVisitor):
             # handle table name
             table_name = ctx.table_name().getText()
             columns = []
+            key = {}
             table_exist = dynamodb.desc_table(table_name)
             if table_exist:
                 # handle columns
                 column_clause = ctx.column_list_clause()
                 if isinstance(column_clause, MySQLParser.Column_list_clauseContext):
                     if column_clause.single_column():
-                        pass
+                        columns.append(column_clause.single_column().getText())
                     elif column_clause.multi_column():
-                        pass
+                        columns = str(column_clause.multi_column().getText()).split(",")
                     elif column_clause.all_column():
                         pass
                     else:
                         raise ParseException("Illegal column : %s" % column_clause.getText())
+                # handle where clause
+                    where_clause = ctx.where_clause(); # where id=3 and user=lyc
+                    if where_clause:
+                        if isinstance(where_clause, MySQLParser.Where_clauseContext):
+                            if where_clause.hash_expression():
+                                hash_expression = where_clause.hash_expression()
+                                if isinstance(hash_expression, MySQLParser.hash_expression()):
+                                    key[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
+                            elif where_clause.hash_range_expression():
+                                hash_range_expression = where_clause.hash_range_expression();
+                                if isinstance(hash_range_expression , MySQLParser.hash_range_expression()):
+                                    key[hash_range_expression.hash_key.getText()] = hash_range_expression.hash_value().getText()
+                                    key[hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+                            else:
+                                raise ParseException("Illegal where clause : %s" % where_clause.getText())
             else:
                 raise ParseException("table %s not exist" % table_name)
-            # handle columns
+            # get items
+            if where_clause:
+                pass
+            else:
+                pass
+
             print(ctx.table_name().getText())
             print(ctx.column_list_clause().getText())
         return self.visitChildren(ctx)

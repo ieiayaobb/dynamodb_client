@@ -16,16 +16,20 @@ body {
 }
 
 .table-ele {
-    height: 30px;
 }
 
 .table-ele > a {
     color: #656D78;
 }
 
+.nav>li>.iconfont {
+    float: left;
+}
 .nav>li>.table-name {
     display:inline-block;
-    width: 80%;
+    float: left;
+    padding: 0;
+    width: 100%;
 }
 
 .sidebar {
@@ -140,7 +144,7 @@ body {
     color:#4FC1E9
 }
 
-.edit-item {
+#edit-item {
     background-color: #434A54;
     border:none;
 }
@@ -148,4 +152,6 @@ body {
 .iconfont{
     font-size: 20px;
     padding:4px;
+    position: relative;
+    top: 2px;
 }

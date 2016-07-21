@@ -60,38 +60,38 @@ class MySQLParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#from_clause.
-    def visitFrom_clause(self, ctx):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MySQLParser#where_clause.
     def visitWhere_clause(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#expression.
-    def visitExpression(self, ctx):
+    # Visit a parse tree produced by MySQLParser#hash_expression.
+    def visitHash_expression(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#element.
-    def visitElement(self, ctx):
+    # Visit a parse tree produced by MySQLParser#hash_range_expression.
+    def visitHash_range_expression(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#right_element.
-    def visitRight_element(self, ctx):
+    # Visit a parse tree produced by MySQLParser#hash_key.
+    def visitHash_key(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#left_element.
-    def visitLeft_element(self, ctx):
+    # Visit a parse tree produced by MySQLParser#range_key.
+    def visitRange_key(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MySQLParser#target_element.
-    def visitTarget_element(self, ctx):
+    # Visit a parse tree produced by MySQLParser#hash_value.
+    def visitHash_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#range_value.
+    def visitRange_value(self, ctx):
         return self.visitChildren(ctx)
 
 
@@ -112,11 +112,6 @@ class MySQLParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MySQLParser#is_or_is_not.
     def visitIs_or_is_not(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MySQLParser#simple_expression.
-    def visitSimple_expression(self, ctx):
         return self.visitChildren(ctx)
 
 

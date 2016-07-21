@@ -103,15 +103,6 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MySQLParser#from_clause.
-    def enterFrom_clause(self, ctx):
-        pass
-
-    # Exit a parse tree produced by MySQLParser#from_clause.
-    def exitFrom_clause(self, ctx):
-        pass
-
-
     # Enter a parse tree produced by MySQLParser#where_clause.
     def enterWhere_clause(self, ctx):
         pass
@@ -121,48 +112,57 @@ class MySQLParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MySQLParser#expression.
-    def enterExpression(self, ctx):
+    # Enter a parse tree produced by MySQLParser#hash_expression.
+    def enterHash_expression(self, ctx):
         pass
 
-    # Exit a parse tree produced by MySQLParser#expression.
-    def exitExpression(self, ctx):
-        pass
-
-
-    # Enter a parse tree produced by MySQLParser#element.
-    def enterElement(self, ctx):
-        pass
-
-    # Exit a parse tree produced by MySQLParser#element.
-    def exitElement(self, ctx):
+    # Exit a parse tree produced by MySQLParser#hash_expression.
+    def exitHash_expression(self, ctx):
         pass
 
 
-    # Enter a parse tree produced by MySQLParser#right_element.
-    def enterRight_element(self, ctx):
+    # Enter a parse tree produced by MySQLParser#hash_range_expression.
+    def enterHash_range_expression(self, ctx):
         pass
 
-    # Exit a parse tree produced by MySQLParser#right_element.
-    def exitRight_element(self, ctx):
-        pass
-
-
-    # Enter a parse tree produced by MySQLParser#left_element.
-    def enterLeft_element(self, ctx):
-        pass
-
-    # Exit a parse tree produced by MySQLParser#left_element.
-    def exitLeft_element(self, ctx):
+    # Exit a parse tree produced by MySQLParser#hash_range_expression.
+    def exitHash_range_expression(self, ctx):
         pass
 
 
-    # Enter a parse tree produced by MySQLParser#target_element.
-    def enterTarget_element(self, ctx):
+    # Enter a parse tree produced by MySQLParser#hash_key.
+    def enterHash_key(self, ctx):
         pass
 
-    # Exit a parse tree produced by MySQLParser#target_element.
-    def exitTarget_element(self, ctx):
+    # Exit a parse tree produced by MySQLParser#hash_key.
+    def exitHash_key(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#range_key.
+    def enterRange_key(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#range_key.
+    def exitRange_key(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#hash_value.
+    def enterHash_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#hash_value.
+    def exitHash_value(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by MySQLParser#range_value.
+    def enterRange_value(self, ctx):
+        pass
+
+    # Exit a parse tree produced by MySQLParser#range_value.
+    def exitRange_value(self, ctx):
         pass
 
 
@@ -199,15 +199,6 @@ class MySQLParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by MySQLParser#is_or_is_not.
     def exitIs_or_is_not(self, ctx):
-        pass
-
-
-    # Enter a parse tree produced by MySQLParser#simple_expression.
-    def enterSimple_expression(self, ctx):
-        pass
-
-    # Exit a parse tree produced by MySQLParser#simple_expression.
-    def exitSimple_expression(self, ctx):
         pass
 
 
