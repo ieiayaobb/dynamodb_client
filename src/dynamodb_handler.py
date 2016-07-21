@@ -26,21 +26,19 @@ class DynamodbHandler:
     def list_tables(self):
         return self.dynamodb_client.list_tables()['TableNames']
 
-    def get_table(self, table_name, last_evaluated_key=None):
+    def get_table(self, table_name):
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)
-            table_items = self.scan(table_name, last_evaluated_key)
-            return table['Table'], table_items
+            return table['Table']
         except Exception as e:
             logging.error(e.message)
 
-    def scan(self, table_name, last_evaluated_key):
+    def scan(self, table_name, page_size=None, next_token=None):
+        paginator = self.dynamodb_client.get_paginator('scan')
+
         try:
-            if last_evaluated_key != None:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, ExclusiveStartKey=last_evaluated_key)
-            else:
-                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit)
-            return table_items
+            paginate_result = paginator.paginate(TableName=table_name, PaginationConfig={'MaxItems': self._scan_limit, 'PageSize': page_size, "NextToken": next_token })
+            return paginate_result
         except Exception as e:
             logging.error(e.message)
 

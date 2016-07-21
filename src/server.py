@@ -57,12 +57,12 @@ def table_view(table_name=None):
 
     if not table_name:
         table_name = tables[0]
-    last_evaluated_key = None
 
-    if request.method == "GET":
-        last_evaluated_key = request.form.get('last_evaluated_key', None)
+    page_size = request.args.get('page_size', None)
+    next_token = request.args.get('next_token', None)
 
-    current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
+    current_table = dynamodb_handler.get_table(table_name)
+    table_items = dynamodb_handler.scan(table_name, page_size=None, next_token=None)
 
     table_headers = collections.OrderedDict()
 
