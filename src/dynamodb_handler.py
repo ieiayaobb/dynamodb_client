@@ -1,4 +1,5 @@
 import boto3 as boto3
+import logging
 
 
 class DynamodbHandler:
@@ -27,9 +28,9 @@ class DynamodbHandler:
         try:
             table = self.dynamodb_client.describe_table(TableName=table_name)
             table_items = self.scan(table, last_evaluated_key)
-            return table, table_items
+            return table['Table'], table_items
         except Exception as e:
-            print (e.message)
+            logging.error(e.message)
 
     def scan(self, table, last_evaluated_key):
         try:
@@ -39,4 +40,4 @@ class DynamodbHandler:
                 table_items = table.scan(Limit=self._scan_limit)
             return table_items
         except Exception as e:
-            print (e.message)
+            logging.error(e.message)

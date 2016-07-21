@@ -129,11 +129,9 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>account_id</th>
-                                <th>email</th>
-                                <th>begin_at</th>
-                                <th>end_at</th>
-                                <th>create_at</th>
+                            {% for attribute in current_table.AttributeDefinitions %}
+                                <th>{{ attribute.AttributeName }}</th>
+                            {% endfor %}
                             </tr>
                             </thead>
                             <tbody>
