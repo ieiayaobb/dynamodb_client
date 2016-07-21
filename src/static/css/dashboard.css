@@ -16,7 +16,7 @@ body {
 }
 
 .table-ele {
-    height: 40px;
+    height: 30px;
 }
 
 .table-ele > a {
@@ -25,7 +25,7 @@ body {
 
 .nav>li>.table-name {
     display:inline-block;
-    width: 180px;
+    width: 80%;
 }
 
 .sidebar {
