@@ -25,6 +25,11 @@ class MySQLParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MySQLParser#limit_clause.
+    def visitLimit_clause(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MySQLParser#table_name.
     def visitTable_name(self, ctx):
         return self.visitChildren(ctx)
@@ -92,6 +97,16 @@ class MySQLParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MySQLParser#range_value.
     def visitRange_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#insert_value.
+    def visitInsert_value(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MySQLParser#limit_value.
+    def visitLimit_value(self, ctx):
         return self.visitChildren(ctx)
 
 

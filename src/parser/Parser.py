@@ -47,6 +47,7 @@ class Visitor(MySQLParserVisitor):
             table_name = ctx.table_name().getText()
             columns = []
             key = {}
+            limit = TABLE_SCAN_LIMIT
             table_exist = self.dynamodb.desc_table(table_name)
             if table_exist:
                 # handle columns
@@ -77,6 +78,12 @@ class Visitor(MySQLParserVisitor):
                                         hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
                             else:
                                 raise ParseException("Illegal where clause : %s" % where_clause.getText())
+                    limit_clause = ctx.limit_clause();
+                    if limit_clause:
+                        if isinstance(limit_clause, MySQLParser.Limit_clauseContext):
+                            if limit_clause.limit_value():
+                                limit = int(limit_clause.limit_value().getText())
+
             else:
                 raise ParseException("table %s not exist" % table_name)
             # get items
@@ -85,9 +92,9 @@ class Visitor(MySQLParserVisitor):
                 result = self.dynamodb.get_item(table_name, key, columns)
             else:
                 if columns:
-                    result = self.dynamodb.scan(table_name, AttributesToGet=columns)
+                    result = self.dynamodb.scan(table_name, AttributesToGet=columns, Limit=limit)
                 else:
-                    result = self.dynamodb.scan(table_name)
+                    result = self.dynamodb.scan(table_name,Limit=limit)
 
         return result
 

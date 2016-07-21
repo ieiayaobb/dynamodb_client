@@ -16,7 +16,12 @@ schema_name:
 desc_clause:
         DESC table_name;
 
-select_clause:SELECT column_list_clause FROM table_name (where_clause)?
+select_clause:
+            SELECT column_list_clause FROM table_name (where_clause)? (limit_clause)?
+            ;
+
+limit_clause:
+            LIMIT limit_value
             ;
 
 table_name:
@@ -72,6 +77,14 @@ hash_value:
 
 range_value:
         ID
+        ;
+
+insert_value:
+        ID
+        ;
+
+limit_value:
+        INT
         ;
 
 relational_op:
