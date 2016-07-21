@@ -25,19 +25,41 @@
     </table>
 </div>
 
+<form id="pagination_form" method="post"  action="/table/{{ table_name }}">
+<input id="current_page_size" name="current_page_size" type="hidden" value="{{ current_page_size }}">
+<input id="last_evaluated_key" name="last_evaluated_key" type="hidden" value="{{ last_evaluated_key }}">
+<input id="page_items_history" name="page_items_history" type="hidden" value="{{ page_items_history }}">
 <nav>
     <ul class="pagination">
         <li>
-            <a href="/table/{{ table_name }}?last_evaluated_key={{ last_evaluated_key }}&pagination=previous" aria-label="Previous">
+            <a href="#" aria-label="Previous" onclick='get_pagination("previous")'>
                 <span aria-hidden="true">上一页</span>
             </a>
         </li>
         <li>
-            <a href="/table/{{ table_name }}?last_evaluated_key={{ last_evaluated_key }}&pagination=next" aria-label="Next">
+            <a href="#" aria-label="Next" onclick='get_pagination("next")'>
                 <span aria-hidden="true">下一页</span>
             </a>
         </li>
     </ul>
 </nav>
+</form>
+
+{% block javascript %}
+<script>
+function get_pagination(type) {
+    var form = $("#pagination_form");
+
+    $('<input>').attr({
+        type: 'hidden',
+        id: 'pagination',
+        name: 'pagination',
+        value: type
+    }).appendTo(form);
+
+    form.submit();
+}
+</script>
+{% endblock %}
 
 {% endblock %}

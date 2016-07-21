@@ -1,5 +1,6 @@
 import threading
 import logging
+import ast
 
 import collections
 from flask import Flask, url_for, redirect, session
@@ -59,12 +60,19 @@ def table_view(table_name=None):
     if not table_name:
         table_name = tables[0]
 
-    last_evaluated_key = request.args.get('last_evaluated_key', None)
-    pagination = request.args.get('pagination', None)
+    # get parameters from page
+    pagination_type = request.form.get("pagination", None)
+    current_page_size = request.form.get("current_page_size", 0, type=int)
 
-    current_table = dynamodb_handler.get_table(table_name)
-    hash_key_name = current_table['KeySchema'][0]['AttributeName']
-    hash_key_type = current_table['KeySchema'][0]['AttributeType']
+    last_evaluated_key = request.form.get('last_evaluated_key', None)
+    if last_evaluated_key:
+        last_evaluated_key = ast.literal_eval(last_evaluated_key)
+
+    page_items_history = request.form.get("page_items_history", [])
+    if page_items_history:
+        page_items_history = ast.literal_eval(page_items_history)
+
+
 
     hash_key = request.form.get('hash_key', None)
     logger.info("hash_key:%s" % (hash_key))
@@ -72,27 +80,48 @@ def table_view(table_name=None):
     range_key = request.form.get('range_key', None)
     logger.info("range_key:%s" % (range_key))
 
-    current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
+    current_table = dynamodb_handler.get_table(table_name)
+
+    page_items = None
+
+    if pagination_type == "previous":
+        if current_page_size > 1:
+            current_page_size -= 1
+            page_items = page_items_history[current_page_size-1]
+        else:
+            page_items = page_items_history[0]
+    elif pagination_type == "next" or not pagination_type:
+        if current_page_size == len(page_items_history):
+            current_page_size += 1
+            page_items, last_evaluated_key = dynamodb_handler.paginate_scan(table_name, ExclusiveStartKey=last_evaluated_key)
+            if page_items:
+                page_items_history.append(page_items)
+        else:
+            current_page_size += 1
+            page_items = page_items_history[current_page_size-1]
 
     table_headers = collections.OrderedDict()
 
     for attribute in current_table['AttributeDefinitions']:
         table_headers[attribute['AttributeName']] = attribute['AttributeType']
 
-    for table_item in table_items['Items']:
-        keys = table_item.keys()
+    for page_item in page_items:
+        keys = page_item.keys()
         for key in keys:
             if not table_headers.has_key(key):
-                table_headers[key] = table_item[key].items()[0][0]
+                table_headers[key] = page_item[key].items()[0][0]
 
     count = dynamodb_handler.count(table_name)
 
     return render_template('table_detail.html',
                            tables=tables,
                            current_table=current_table,
-                           table_items=table_items['Items'],
-                           table_headers=table_headers,
+                           table_items=page_items,
+                           current_page_size=current_page_size,
                            last_evaluated_key=last_evaluated_key,
+                           page_items_history=page_items_history,
+                           count=count,
+                           table_headers=table_headers,
                            table_name=table_name)
 
 
