@@ -16,13 +16,6 @@ logger = logging.getLogger("")
 
 dynamodb_handler_dic = {}
 
-@app.route("/dashboard")
-def dashboard():
-    dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
-    tables = dynamodb_handler.list_tables()
-    return render_template('dashboard.html', tables=tables)
-
-
 @app.route("/connect", methods=['GET'])
 def get_connect():
     return render_template('connect.html')
@@ -43,18 +36,22 @@ def post_connect():
 
     session['endpoint'] = endpoint
 
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('table_view'))
 
 
 @app.route("/")
 def index():
-    return redirect(url_for('connect'))
+    return redirect(url_for('get_connect'))
 
+@app.route("/table/", methods=['POST', 'GET'])
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
-def table_view(table_name):
+def table_view(table_name=None):
     dynamodb_handler = dynamodb_handler_dic[session['endpoint']]
 
     tables = dynamodb_handler.list_tables()
+
+    if not table_name:
+        table_name = tables[0]
     last_evaluated_key = None
 
     if request.method == "GET":
