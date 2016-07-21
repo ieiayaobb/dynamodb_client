@@ -44,6 +44,7 @@ def post_connect():
 def index():
     return redirect(url_for('get_connect'))
 
+
 @app.route("/table/", methods=['POST', 'GET'])
 @app.route("/table/<table_name>", methods=['POST', 'GET'])
 def table_view(table_name=None):
