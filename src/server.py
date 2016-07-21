@@ -62,8 +62,9 @@ def table_view(table_name=None):
         last_evaluated_key =  request.form.get('last_evaluated_key', None)
 
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
+    print table_name
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items)
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items, table_name=table_name)
 
 
 def init_logger():

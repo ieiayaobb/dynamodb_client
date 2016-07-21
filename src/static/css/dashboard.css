@@ -16,16 +16,18 @@ body {
 }
 
 .table-ele {
-    height: 30px;
 }
 
 .table-ele > a {
     color: #656D78;
 }
 
+.nav>li>.iconfont {
+    float: left;
+}
 .nav>li>.table-name {
     display:inline-block;
-    width: 80%;
+    float: left;
 }
 
 .sidebar {

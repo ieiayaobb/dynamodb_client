@@ -15,7 +15,10 @@
         <div class="col-sm-2 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 {% for table in tables %}
-                    <li class="table-ele" ><i class="iconfont icon-table"></i><a class="table-name" href="/table/{{table}}">{{ table }}</a></li>
+                    <li class="table-ele {% if table == table_name %}active{% endif %} clear" >
+                        <i class="iconfont icon-table"></i>
+                        <a class="table-name" href="/table/{{table}}">{{ table }}</a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
