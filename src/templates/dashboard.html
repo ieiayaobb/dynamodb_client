@@ -18,31 +18,9 @@
 
     <!-- Custom styles for this template -->
     <link href="{{url_for('static', filename='css/dashboard.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/font.css')}}" rel="stylesheet">
 
-    <style>
-        body{
-            background-color: rgb(241, 242, 246);
-        }
-        .console {
-            height: 300px;
-            color: #FFF;
-            background-color: #434A54;
-            overflow: auto;
-        }
 
-        .table-name>a{
-            color: #656D78;
-        }
-
-        .sidebar {
-            background-color: #E6E9ED;
-            overflow:auto;
-        }
-
-        .operate-bar {
-            margin:10px 0;
-        }
-    </style>
 
 </head>
 
@@ -73,19 +51,24 @@
         <!--</div>-->
     </div>
 </nav>
-
+<div class="popover right" id="popover-panel">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <input class="edit-item" type="text" value="9999" />
+  </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 {% for table in tables %}
-                    <li class="table-name" ><a href="#">{{ table }}</a></li>
+                    <li class="table-ele" ><i class="iconfont icon-table"></i><a class="table-name" href="#">{{ table }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
             <div class="panel panel-success">
-                <div class="panel-heading">Data</div>
+                <div class="panel-heading"><i class="iconfont icon-data"></i>数据</div>
                 <div class="panel-body">
                     <form class="form-inline">
                         <div class="row form-bar">
@@ -120,8 +103,8 @@
                         </div>
                         <div class="row operate-bar">
                             <div class="col-xs-offset-9 col-xs-3 col-sm-offset-9 col-sm-3">
-                                <button type="submit" class="btn btn-success">查询</button>
-                                <button type="submit" class="btn btn-default">扫描</button>
+                                <button type="submit" class="btn btn-success"><i class="iconfont icon-querycondition"></i>查询</button>
+                                <button type="submit" class="btn btn-default"><i class="iconfont icon-scan"></i>扫描</button>
                             </div>
                         </div>
                     </form>
@@ -137,48 +120,148 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td>sit</td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
-                                <td>elit</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>Integer</td>
-                                <td>nec</td>
-                                <td>odio</td>
-                                <td>Praesent</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>libero</td>
-                                <td>Sed</td>
-                                <td>cursus</td>
-                                <td>ante</td>
-                            </tr>
-                            <tr>
-                                <td>1,004</td>
-                                <td>dapibus</td>
-                                <td>diam</td>
-                                <td>Sed</td>
-                                <td>nisi</td>
-                            </tr>
-                            <tr>
-                                <td>1,005</td>
-                                <td>Nulla</td>
-                                <td>quis</td>
-                                <td>sem</td>
-                                <td>at</td>
-                            </tr>
+                                <tr>
+                                    <td class="data-item">
+                                        <i class="iconfont">&#xe654;</i>1,001
+                                    </td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                    <td class="data-item"><i class="iconfont">&#xe654;</i>1,001</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -208,7 +291,7 @@
 
         <div class="col-sm-7 col-sm-offset-2 col-md-7 col-md-offset-2">
             <div class="panel panel-success ">
-                <div class="panel-heading">Console</div>
+                <div class="panel-heading"><i class="iconfont icon-console"></i>控制台</div>
                 <div class="panel-body console">
                     <ul>
                         <li>Scan table</li>
@@ -223,7 +306,7 @@
 
         <div class="col-sm-3 col-md-3">
             <div class="panel panel-success info">
-                <div class="panel-heading">详情</div>
+                <div class="panel-heading"><i class="iconfont icon-detail"></i>详情</div>
                 <div class="panel-body ">
                     <ul class="list-group">
                         <li class="list-group-item"><span>总数量:</span><strong>18232</strong></li>
@@ -242,5 +325,23 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("body").click(function(e){
+                if ($(e.target).hasClass("data-item")){
+                    var top = $(e.target).offset().top
+                    var left = $(e.target).offset().left + 100
+
+                    $("#popover-panel").show().css({
+                        top: top,
+                        left: left
+                    })
+                }else {
+                    $("#popover-panel").hide()
+                }
+            })
+        })
+    </script>
 </body>
 </html>
