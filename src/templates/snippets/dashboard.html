@@ -2,6 +2,7 @@
 
 {% block stylesheet %}
 <link href="{{url_for('static', filename='css/dashboard.css')}}" rel="stylesheet">
+<link href="{{url_for('static', filename='css/bootstrap-select.min.css')}}" rel="stylesheet">
 {% endblock %}
 {% block main %}
 <div class="popover right" id="popover-panel">
@@ -22,7 +23,6 @@
             </ul>
         </div>
         <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
-
             <div class="panel-group panel-group-lists" id="show">
                 <div class="panel panel-success">
                     <div class="panel-heading">
@@ -35,34 +35,31 @@
                         <div class="panel-body">
                             <form class="form-inline">
                                 <div class="row form-bar">
-                                    <div class="col-xs-2 col-sm-2">
-                                        <div class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle" type="button"
-                                                    id="dropdownMenu1"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Index
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                <li><a href="#">Table</a></li>
-                                                <li><a href="#">email</a></li>
-                                                <li><a href="#">company_id</a></li>
-                                            </ul>
-                                        </div>
+                                    <div class="col-xs-2 col-sm-2 select-wrapper">
+                                        <select id="index-selector" class="selectpicker" data-style="btn-success">
+                                            <option value="table">Table</option>
+                                            {% for global_secondary_index in current_table['GlobalSecondaryIndexes']
+                                            %}
+                                            <option value="{{ global_secondary_index['IndexName'] }}">{{
+                                                global_secondary_index['IndexName'] }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <input type="hidden" id="index-name" name="index_name">
                                     </div>
 
                                     <div class="col-xs-5 col-sm-5">
                                         <div class="form-group">
                                             <span>Hash Key:</span>
-                                            <input type="text" class="form-control" id="exampleInputName1"
-                                                   placeholder="email">
+                                            <input type="text" class="form-control" id="hash-key-field" name="hash_key"
+                                                   placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-xs-5 col-sm-5">
                                         <div class="form-group">
                                             <span>Range Key:</span>
-                                            <input type="text" class="form-control" id="exampleInputName2"
-                                                   placeholder="company_id">
+                                            <input type="text" class="form-control" id="range-key-field" name="range_key"
+                                                   placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -110,23 +107,21 @@
                     </div>
                     <div id="detail" class="panel-collapse collapse in">
                         <ul class="list-group">
-                            <li class="list-group-item"><span>总数量:</span><strong>18232</strong></li>
+                            <li class="list-group-item"><span>总数量:</span><strong>{{ count }}</strong></li>
                             <li class="list-group-item"><span>Stream信息:</span></li>
                             <li class="list-group-item"><span>Global Secondary Index:</span></li>
                             <li class="list-group-item"><span>Local Secondary Index:</span></li>
                         </ul>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
 
 {% block javascript %}
+<script src="{{url_for('static', filename='js/bootstrap-select.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("body").click(function (e) {
@@ -159,6 +154,37 @@
                 left: left
             })
         }
+        var table_keys = {}
+        {% for key_schema in current_table['KeySchema'] %}
+            table_keys['{{ key_schema['KeyType']}}'] = '{{ key_schema['AttributeName']}}'
+        {% endfor %}
+
+        $("#hash-key-field").attr('placeholder', table_keys['HASH'])
+        $("#range-key-field").attr('placeholder', table_keys['RANGE'])
+
+        var global_secondary_indexes = {}
+        {% for global_secondary_index in current_table['GlobalSecondaryIndexes']%}
+            var key_schemas = {}
+            {% for key_schema in global_secondary_index['KeySchema'] %}
+                key_schemas['{{ key_schema['KeyType']}}'] = '{{ key_schema['AttributeName']}}'
+            {% endfor %}
+
+            global_secondary_indexes['{{ global_secondary_index['IndexName'] }}'] = key_schemas
+        {% endfor %}
+
+        $("#index-selector").change(function(){
+            if($(this).val() == 'table'){
+                $("#hash-key-field").attr('placeholder', table_keys['HASH'])
+                $("#range-key-field").attr('placeholder', table_keys['RANGE'])
+            } else {
+                global_secondary_index = global_secondary_indexes[$(this).val()];
+                $("#hash-key-field").attr('placeholder', global_secondary_index['HASH'])
+                $("#range-key-field").attr('placeholder', global_secondary_index['RANGE'])
+            }
+
+            $("#index-name").val($(this).val())
+        })
     })
 </script>
+{% block inner_javascript %}{% endblock %}
 {% endblock %}

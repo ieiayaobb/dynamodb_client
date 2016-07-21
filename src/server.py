@@ -63,6 +63,12 @@ def table_view(table_name=None):
     if request.method == "GET":
         last_evaluated_key = request.form.get('last_evaluated_key', None)
 
+        hash_key = request.form.get('hash_key', None)
+        logger.info("hash_key:%s" % (hash_key))
+
+        range_key = request.form.get('range_key', None)
+        logger.info("range_key:%s" % (range_key))
+
     current_table, table_items = dynamodb_handler.get_table(table_name, last_evaluated_key)
 
     table_headers = collections.OrderedDict()
@@ -76,7 +82,9 @@ def table_view(table_name=None):
             if not table_headers.has_key(key):
                 table_headers[key] = table_item[key].items()[0][0]
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name)
+    count = dynamodb_handler.count(table_name)
+
+    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name, count=count)
 
 
 def init_logger():

@@ -49,3 +49,16 @@ class DynamodbHandler:
             return self.dynamodb_client.describe_table(TableName=table_name)
         except Exception as e:
             logging.error(e.message)
+
+    def count(self, table_name):
+        target_table = self.dynamodb.Table(table_name)
+        result = target_table.scan(Select='COUNT')
+        lastEvaluatedKey = result.get("LastEvaluatedKey")
+        count = result.get("Count")
+
+        while (lastEvaluatedKey != None):
+            result = target_table.scan(ExclusiveStartKey=lastEvaluatedKey, Select='COUNT')
+            lastEvaluatedKey = result.get("LastEvaluatedKey")
+            count = count + result.get("Count")
+
+        return count
