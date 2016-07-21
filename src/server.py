@@ -59,11 +59,18 @@ def table_view(table_name=None):
     if not table_name:
         table_name = tables[0]
 
-    page_size = request.args.get('page_size', None)
-    next_token = request.args.get('next_token', None)
+    last_evaluated_key = request.args.get('last_evaluated_key', None)
+    pagination = request.args.get('pagination', None)
 
     current_table = dynamodb_handler.get_table(table_name)
-    table_items = dynamodb_handler.scan(table_name, page_size=None, next_token=None)
+    hash_key_name = current_table['KeySchema'][0]['AttributeName']
+    hash_key_type = current_table['KeySchema'][0]['AttributeType']
+
+
+    table_items = dynamodb_handler.scan(table_name, last_evaluated_key, pagination=pagination, hash_key_name=hash_key_name, hash_key_type=hash_key_type)
+
+
+    last_evaluated_key = table_items['LastEvaluatedKey'][hash_key_name].items()[0][1]
 
     table_headers = collections.OrderedDict()
 
@@ -76,7 +83,13 @@ def table_view(table_name=None):
             if not table_headers.has_key(key):
                 table_headers[key] = table_item[key].items()[0][0]
 
-    return render_template('table_detail.html', tables=tables, current_table=current_table, table_items=table_items['Items'], table_headers=table_headers, table_name=table_name)
+    return render_template('table_detail.html',
+                           tables=tables,
+                           current_table=current_table,
+                           table_items=table_items['Items'],
+                           table_headers=table_headers,
+                           last_evaluated_key=last_evaluated_key,
+                           table_name=table_name)
 
 
 def init_logger():

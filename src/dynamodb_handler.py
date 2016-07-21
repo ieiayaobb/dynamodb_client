@@ -33,36 +33,15 @@ class DynamodbHandler:
         except Exception as e:
             logging.error(e.message)
 
-    def scan(self, table_name, page_size=None, next_token=None):
-        paginator = self.dynamodb_client.get_paginator('scan')
-
+    def scan(self, table_name, last_evaluated_key=None, **kwargs):
         try:
-            paginate_result = paginator.paginate(TableName=table_name, PaginationConfig={'MaxItems': self._scan_limit, 'PageSize': page_size, "NextToken": next_token })
-            return paginate_result
-        except Exception as e:
-            logging.error(e.message)
+            if "pagination" in kwargs.keys():
+                pass
 
-    def scan(self, table_name, attributes_to_get):
-        try:
-            table_items = self.dynamodb_client.scan(TableName=table_name, attributes_to_get=attributes_to_get,
-                                                    Limit=self._scan_limit)
+            if last_evaluated_key:
+                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit, ExclusiveStartKey=last_evaluated_key)
+            else:
+                table_items = self.dynamodb_client.scan(TableName=table_name, Limit=self._scan_limit)
             return table_items
         except Exception as e:
             logging.error(e.message)
-
-    def get_item(self, table_name, key, attributes_to_get):
-        try:
-            talbe = self.dynamodb.Table(table_name)
-            if attributes_to_get:
-                return talbe.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
-            else:
-                return talbe.get_item(TableName=table_name, Key=key)
-        except Exception as e:
-            logging.error(e.message)
-
-    def desc_table(self, table_name):
-        try:
-            return self.dynamodb_client.describe_table(TableName=table_name)
-        except Exception as e:
-            logging.error(e.message)
-
