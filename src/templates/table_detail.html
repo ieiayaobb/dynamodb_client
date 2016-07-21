@@ -5,154 +5,20 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-        {% for attribute in current_table.AttributeDefinitions %}
-            <th>{{ attribute.AttributeName }}</th>
+        {% for key, value in table_headers.iteritems() %}
+            <th>{{ key|e }}</th>
         {% endfor %}
         </tr>
         </thead>
         <tbody>
+            {% for item in table_items %}
             <tr>
-                <td class="data-item">
-                    <i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span>
-                </td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
+                {% for key, value in table_headers.iteritems() %}
+                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>{% if key not in item.keys() %}null{% else %}{{ item[key][value] }}{% endif %}</span></td>
+                {% endfor %}
             </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
-            <tr>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-                <td class="data-item"><i class="iconfont">&#xe654;</i><span class=data-item-val>1001</span></td>
-            </tr>
+            {% endfor %}
+
         </tbody>
     </table>
 </div>
