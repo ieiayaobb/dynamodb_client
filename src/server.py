@@ -205,21 +205,26 @@ def table_view(table_name=None):
                 for key in keys:
                     if not table_headers.has_key(key):
                         table_headers[key] = page_item[key].items()[0][0]
+            handle_table_items = table_items['Items']
 
         else:
             terminal_text = request.form.get('terminal_text', None)
             logger.info("terminal_text:%s" % (terminal_text))
-            table_items = Parser.parse(terminal_text)
-            if table_items:
+            result = Parser.parse(terminal_text)
+            global handle_table_items
+            if 'Item' in result:
+                handle_table_items = [result['Item']]
+
+            if handle_table_items:
                 messages.append(terminal_text)
                 session['messages'] = messages
 
-        if table_items and 'Items' in table_items:
+        if handle_table_items:
             return render_template('table_detail.html',
                                    tables=tables,
                                    current_table=current_table,
                                    query_operation=True,
-                                   table_items=table_items['Items'],
+                                   table_items=handle_table_items,
                                    current_page_size=current_page_size,
                                    page_item_limit=Constant.TABLE_SCAN_LIMIT,
                                    last_evaluated_key=last_evaluated_key,
