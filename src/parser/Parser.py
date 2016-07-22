@@ -68,14 +68,24 @@ class Visitor(MySQLParserVisitor):
                             if where_clause.hash_expression():
                                 hash_expression = where_clause.hash_expression()
                                 if isinstance(hash_expression, MySQLParser.Hash_expressionContext):
-                                    key[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
+                                    # key[hash_expression.hash_key().getText()] = hash_expression.hash_value().getText()
+                                    key[hash_expression.hash_key().getText()] = {
+                                        'S': hash_expression.hash_value().getText()
+                                    }
                             elif where_clause.hash_range_expression():
                                 hash_range_expression = where_clause.hash_range_expression();
                                 if isinstance(hash_range_expression, MySQLParser.Hash_range_expressionContext):
-                                    key[
-                                        hash_range_expression.hash_key().getText()] = hash_range_expression.hash_value().getText()
-                                    key[
-                                        hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+                                    # key[
+                                    #     hash_range_expression.hash_key().getText()] = hash_range_expression.hash_value().getText()
+                                    # key[
+                                    #     hash_range_expression.range_key().getText()] = hash_range_expression.range_value().getText()
+
+                                    key[hash_range_expression.hash_key().getText()] = {
+                                        'S': hash_range_expression.hash_value().getText()
+                                    }
+                                    key[hash_range_expression.range_key().getText()] = {
+                                        'S': hash_range_expression.range_value().getText()
+                                    }
                             else:
                                 raise ParseException("Illegal where clause : %s" % where_clause.getText())
                     limit_clause = ctx.limit_clause();

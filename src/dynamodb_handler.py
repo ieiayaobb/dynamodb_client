@@ -69,9 +69,9 @@ class DynamodbHandler:
         try:
             talbe = self.dynamodb.Table(table_name)
             if attributes_to_get:
-                return talbe.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
+                return self.dynamodb_client.get_item(TableName=table_name, Key=key, AttributesToGet=attributes_to_get)
             else:
-                return talbe.get_item(TableName=table_name, Key=key)
+                return self.dynamodb_client.get_item(TableName=table_name, Key=key)
         except Exception as e:
             logging.error(e.message)
 
