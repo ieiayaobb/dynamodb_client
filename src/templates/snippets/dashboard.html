@@ -176,7 +176,16 @@
                     table_name: '{{table_name}}'
                 },
                 success:function(){
-                    $target.children('.data-item-val').text(update_value)
+                    $target.children('.data-item-val').text(update_value);
+                    $.notify('<strong>Saved</strong>', {
+                        type: 'info',
+                        icon: 'glyphicon glyphicon-warning-sign',
+                        animate: {
+                            enter: 'animated fadeInDown',
+                            exit: 'animated fadeOutUp'
+                        },
+                        icon_type: 'class'
+                    });
                 }
             });
         })
