@@ -25,12 +25,14 @@
     </table>
 </div>
 
+
 <form id="pagination_form" method="post"  action="/table/{{ table_name }}">
 <input id="current_page_size" name="current_page_size" type="hidden" value="{{ current_page_size }}">
 <input id="last_evaluated_key" name="last_evaluated_key" type="hidden" value="{{ last_evaluated_key }}">
 <input id="page_items_history" name="page_items_history" type="hidden" value="{{ page_items_history }}">
 
 <div class="col-xs-10 col-sm-10">
+{% if not query_operation %}
 <nav>
     <ul class="pagination">
         <li>
@@ -45,9 +47,18 @@
         </li>
     </ul>
 </nav>
+{% endif %}
 </div>
-<div class="col-xs-2 col-sm-2">Viewing {% if table_items|length > 1 %}{{ ((current_page_size - 1) * page_item_limit) + 1 }}{% else %}0{% endif %} to {{ table_items|length + (current_page_size - 1) * page_item_limit }} items</div>
 </form>
+
+
+{% if query_operation %}
+<div class="col-xs-2 col-sm-2">Viewing {% if table_items|length > 1 %}1{% else %}0{% endif %} to {{ table_items|length }} items</div>
+{% else %}
+<div class="col-xs-2 col-sm-2">Viewing {% if table_items|length > 1 %}{{ ((current_page_size - 1) * page_item_limit) + 1 }}{% else %}0{% endif %} to {{ table_items|length + (current_page_size - 1) * page_item_limit }} items</div>
+{% endif %}
+
+
 {% endblock %}
 
 {% block inner_javascript %}
